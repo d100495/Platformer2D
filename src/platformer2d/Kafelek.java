@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.*;
-
+sd
 
 public class Kafelek //moze sie skladac z wiekszej ilosci blokow
 {
