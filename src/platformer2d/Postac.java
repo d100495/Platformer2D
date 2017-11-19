@@ -19,6 +19,7 @@ public abstract class Postac
     public Postac()
     {
         this.x = 5;
+        this.x = 3;
         this.y = 0;
         this.szer=0;
         this.wys=0;
