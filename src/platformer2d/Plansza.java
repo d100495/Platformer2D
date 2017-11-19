@@ -58,7 +58,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     public void start() 
     {
             
-    System.out.println("asfg");
+    System.out.println("test");
         //Obiekty
         new Kafelek(); //ładowanie obrazków
         level_1 = new Poziom1();
