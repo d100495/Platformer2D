@@ -101,6 +101,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
          tloPlanszy = ImageIO.read(background_dayFile);
          }
          catch(Exception e)
+         catch(Exception e)asdasd
         {
         //throw new UnsupportedOperationException("Błąd ładowania obrazków"); 
         }
