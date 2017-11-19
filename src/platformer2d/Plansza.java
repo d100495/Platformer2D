@@ -37,7 +37,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
      
      
     //Logika, poruszanie...
-    public static int scrollingX=0, scrollingY=0;
+    public static int scrollingX=0, scrollingY=-20;
     public static double kierunekPostaci=0;
     
     
@@ -47,7 +47,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
 
     
     //Poziomy,obiekty........
-    public static Poziom level_1;
+    public static Poziom1 level_1;
     public static PostacGracza postac_1;
     
 
@@ -61,8 +61,8 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     System.out.println("asfg");
         //Obiekty
         new Kafelek(); //ładowanie obrazków
-        level_1 = new Poziom();
-        postac_1 = new PostacGracza(Kafelek.kafelekSize, Kafelek.kafelekSize);
+        level_1 = new Poziom1();
+        postac_1 = new PostacGracza(100,250,Kafelek.kafelekSize, Kafelek.kafelekSize);
 
         //Pętla gry
         gameIsRunning = true; //rozpoczęcie gry
@@ -102,11 +102,11 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
          }
          catch(Exception e)
         {
-        //throw new UnsupportedOperationException("Błąd ładowania obrazków"); 
+        e.printStackTrace();
         }
        
          
-        graph1.drawImage(tloPlanszy, 0, 0, this);
+        graph1.drawImage(tloPlanszy, -scrollingX, 0, null);
         
         //Rendering (wszystkie metody render)
         level_1.renderPoziom(graph1);
@@ -142,7 +142,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
                 Thread.sleep(10);
             } 
             catch (InterruptedException ex) {
-                throw new UnsupportedOperationException("Thread.Sleep Exception.");
+               ex.printStackTrace();
             }
 
         }
