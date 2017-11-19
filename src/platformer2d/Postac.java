@@ -18,10 +18,10 @@ public abstract class Postac
     
     public Postac()
     {
-        this.x = 0;
-        this.y = 0;
-        this.szer=0;
-        this.wys=0;
+        this.x = 100;
+        this.y = 100;
+        this.szer=Kafelek.kafelekSize;
+        this.wys=Kafelek.kafelekSize;
     }
     
     

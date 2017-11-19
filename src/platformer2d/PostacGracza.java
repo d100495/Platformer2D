@@ -14,12 +14,20 @@ public class PostacGracza extends Postac
      public PostacGracza(int szer, int wys)
     {
         this.x=((Plansza.piksele.width/2)-(szer/2));
-        this.y=((Plansza.piksele.height)-(3*wys));       
+        this.y=((Plansza.piksele.height/2)-(wys));       
 
         this.szer=szer;
         this.wys=wys;
     }
      
+      public PostacGracza(int x, int y,int szer, int wys)
+    {
+        this.x=x;
+        this.y=y;
+
+        this.szer=szer;
+        this.wys=wys;
+    }
      
 
      
