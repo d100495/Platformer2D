@@ -37,7 +37,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
      
      
     //Logika, poruszanie...
-    public static int scrollingX=0, scrollingY=0;
+    public static int scrollingX=0, scrollingY=-20;
     public static double kierunekPostaci=0;
     
     
