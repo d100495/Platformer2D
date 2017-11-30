@@ -11,7 +11,8 @@ public class Kafelek //moze sie skladac z wiekszej ilosci blokow
 {
     public static int[] powietrze = {-1,-1};
     public static int[] ziemia = {0,0};
-    public static int[] postacGracza = {0,19};
+    public static int[] postacGraczaIdle = {0,19};
+    public static int [] postacGraczaRun = {0,18};
     public static int [] trawa = {1,0};
     
     public static BufferedImage kafelki_teren;

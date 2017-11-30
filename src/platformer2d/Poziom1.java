@@ -54,6 +54,11 @@ public class Poziom1
                {
                    bloki[x][y].blokID=Kafelek.ziemia;
                }
+               
+                 if(y==bloki[x].length-5 && x>20 && x<30)
+               {
+                   bloki[x][y].blokID=Kafelek.ziemia;
+               }
             }
         }
     }
