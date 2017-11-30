@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Random;
 import javax.imageio.*;
 import javax.swing.JFrame;
 
@@ -84,30 +85,46 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         postac_1.tick();
     }
 
+    //Zmienne do renderowania
+    public static BufferedImage tloPlanszy=null;
+    public static BufferedImage chmura=null;
+//    Random randomNumber = new Random();
+//    int chmuraY1 = randomNumber.nextInt(200)+150;
+//    int chmuraY2= randomNumber.nextInt(200)+150;
+//    int chmuraY3 = randomNumber.nextInt(200)+150;
+//    int chmuraY4 = randomNumber.nextInt(200)+150;
     
-    public static BufferedImage tloPlanszy;
     public void render() 
     {
-        Graphics graph1 = obrazekEkranu.getGraphics();
+        //Obiekty graficzne planszy
+        Graphics graph1 = obrazekEkranu.getGraphics(); // plansza nr1
 
-        //Rysowanie
-        graph1.setColor(Color.CYAN);
-        graph1.fillRect(0, 0, piksele.width, piksele.height);//tworzenie tła
-        
-       
-         File background_dayFile = new File(System.getProperty("user.dir")+"\\src\\resources\\background_day.jpg");  
-         try
-         {
-         tloPlanszy = ImageIO.read(background_dayFile);
-         }
-         catch(Exception e)
-        {
-        e.printStackTrace();
-        }
-       
-         
-        graph1.drawImage(tloPlanszy, -scrollingX, 0, null);
-        
+
+        //Pliki tła planszy
+                //File background_dayFile = new File(System.getProperty("user.dir")+"\\src\\resources\\background_day.jpg");  
+                File chmura_png = new File(System.getProperty("user.dir")+"\\src\\resources\\chmura1.png");  
+                try
+                {
+               // tloPlanszy = ImageIO.read(background_dayFile);
+                    chmura = ImageIO.read(chmura_png);
+                }
+                catch(Exception e)
+               {
+               e.printStackTrace();
+               }
+
+               //graph1.drawImage(tloPlanszy, -scrollingX, 0, null);
+               
+               
+         //Rysowanie
+          graph1.setColor(new Color(83, 157, 164));
+          graph1.fillRect(0, 0, piksele.width, piksele.height);//tworzenie tła
+          graph1.drawImage(chmura, 2300-scrollingX, 150, this);  
+          graph1.drawImage(chmura, 650-scrollingX, 50, this);  
+          graph1.drawImage(chmura, 1200-scrollingX, 100, this);  
+          graph1.drawImage(chmura, 250-scrollingX, 140, this);       
+            
+            
         //Rendering (wszystkie metody render)
         level_1.renderPoziom(graph1);
         postac_1.render(graph1);
@@ -139,7 +156,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             
             try  //predkosc gry
             {
-                Thread.sleep(10);
+                Thread.sleep(25);
             } 
             catch (InterruptedException ex) {
                ex.printStackTrace();

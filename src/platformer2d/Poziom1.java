@@ -68,6 +68,9 @@ public class Poziom1
         
     }
     
+    
+    
+    
     public void renderPoziom(Graphics grap_arg)
     {
        for(int x =0; x<bloki.length;x++)
