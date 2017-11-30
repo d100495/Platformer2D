@@ -19,7 +19,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     //Wyglad ....
     //klasa Dimension zawiera parametry szerokosc i wysokosc do okna
     protected static final Dimension rozmiarOkna = new Dimension(1280, 720);
-    public static String tytul = "Przygody Wnęko - Platformer 2D";
+    public static String tytul = "Platformer 2D";
     private static Image obrazekEkranu;
     
     private static final int rozmiarPiksela = 2; //czyli jakby przyblizenie ekranu
@@ -137,7 +137,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             render();
 
             
-            try 
+            try  //predkosc gry
             {
                 Thread.sleep(10);
             } 
