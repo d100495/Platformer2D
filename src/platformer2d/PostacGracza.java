@@ -35,7 +35,7 @@ public class PostacGracza extends Postac
     public double predkoscPoruszania=7;
     
     public int animacja=0;
-    public int klatkaAnimacji = 0, czasAnimacji=20;
+    public int klatkaAnimacji = 0, czasAnimacji=10;
     
     
     @Override
