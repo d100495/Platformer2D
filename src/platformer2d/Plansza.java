@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Random;
 import javax.imageio.*;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 
@@ -86,27 +87,31 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     }
 
     //Zmienne do renderowania
-    public static BufferedImage tloPlanszy=null;
-    public static BufferedImage chmura=null;
+    //public static BufferedImage tloPlanszy=null;
+   // public static BufferedImage chmura=null;
+    
 //    Random randomNumber = new Random();
 //    int chmuraY1 = randomNumber.nextInt(200)+150;
 //    int chmuraY2= randomNumber.nextInt(200)+150;
 //    int chmuraY3 = randomNumber.nextInt(200)+150;
 //    int chmuraY4 = randomNumber.nextInt(200)+150;
+        
     
     public void render() 
     {
         //Obiekty graficzne planszy
-        Graphics graph1 = obrazekEkranu.getGraphics(); // plansza nr1
+                Graphics graph1 = obrazekEkranu.getGraphics(); // plansza nr1
 
 
         //Pliki tła planszy
                 //File background_dayFile = new File(System.getProperty("user.dir")+"\\src\\resources\\background_day.jpg");  
-                File chmura_png = new File(System.getProperty("user.dir")+"\\src\\resources\\chmura1.png");  
+                Image chmura = new ImageIcon(System.getProperty("user.dir")+"\\src\\resources\\chmura1.png").getImage();   
+                //Image icon = new ImageIcon(System.getProperty("user.dir")+"\\src\\resources\\giphy.gif").getImage();  
                 try
                 {
                // tloPlanszy = ImageIO.read(background_dayFile);
-                    chmura = ImageIO.read(chmura_png);
+                   // chmura = ImageIO.read(chmura_png);
+                    
                 }
                 catch(Exception e)
                {
@@ -117,18 +122,18 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
                
                
          //Rysowanie
-          graph1.setColor(new Color(83, 157, 164));
-          graph1.fillRect(0, 0, piksele.width, piksele.height);//tworzenie tła
-          graph1.drawImage(chmura, 2300-scrollingX, 150, this);  
-          graph1.drawImage(chmura, 650-scrollingX, 50, this);  
-          graph1.drawImage(chmura, 1200-scrollingX, 100, this);  
-          graph1.drawImage(chmura, 250-scrollingX, 140, this);       
+                graph1.setColor(new Color(83, 157, 164));
+                graph1.fillRect(0, 0, piksele.width, piksele.height);//tworzenie tła
+                graph1.drawImage(chmura, 2300-scrollingX, 150, this);  
+                graph1.drawImage(chmura, 650-scrollingX, 50, this);  
+                graph1.drawImage(chmura, 1200-scrollingX, 100, this);  
+                graph1.drawImage(chmura, 250-scrollingX, 140, this);       
             
             
         //Rendering (wszystkie metody render)
-        level_1.renderPoziom(graph1);
-        postac_1.render(graph1);
-        
+                level_1.renderPoziom(graph1);
+                postac_1.render(graph1);
+
         
         
         graph1 = getGraphics();
