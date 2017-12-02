@@ -29,12 +29,12 @@ public class Sterowanie implements KeyListener
         {
             case KeyEvent.VK_D:
                 Plansza.isCharacterMoving=true;
-                Plansza.kierunekPostaci = Plansza.postac_1.predkoscPoruszania;
+                Plansza.kierunekPostaci = Plansza.postac.predkoscPoruszania;
             break;
             
             case KeyEvent.VK_A:
                 Plansza.isCharacterMoving=true;
-                Plansza.kierunekPostaci = -Plansza.postac_1.predkoscPoruszania;
+                Plansza.kierunekPostaci = -Plansza.postac.predkoscPoruszania;
             break;
             
             
@@ -51,14 +51,14 @@ public class Sterowanie implements KeyListener
         switch(klawisz)
         {
             case KeyEvent.VK_D:
-                if(Plansza.kierunekPostaci==Plansza.postac_1.predkoscPoruszania)
+                if(Plansza.kierunekPostaci==Plansza.postac.predkoscPoruszania)
                 {
                     Plansza.isCharacterMoving =false;
                 }
             break;
             
             case KeyEvent.VK_A:
-               if(Plansza.kierunekPostaci==-Plansza.postac_1.predkoscPoruszania)
+               if(Plansza.kierunekPostaci==-Plansza.postac.predkoscPoruszania)
                 {
                     Plansza.isCharacterMoving =false;
                 }

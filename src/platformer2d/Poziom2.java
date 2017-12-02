@@ -13,14 +13,14 @@ import static platformer2d.Plansza.scrollingX;
  *
  * @author Dunger
  */
-public final class Poziom1 extends Poziom
+public final class Poziom2 extends Poziom
 {
 
-    public Poziom1(int W, int H) {
+    public Poziom2(int W, int H) {
         super(W, H);
         StworzPoziom();//wypelnianie innymi kafelkami
     }
-   
+    
     
     @Override
     public Blok[][] getBloki()
@@ -48,18 +48,7 @@ public final class Poziom1 extends Poziom
                    bloki[x][y].blokID=Kafelek.trawa;
                }
                
-               if((x==0 || x==bloki.length-1) && y==bloki[x].length-2)
-               {
-                   bloki[x][y].blokID=Kafelek.ziemia;
-               }
-               
-               for(int xx=0;xx<12;xx++)
-               {
-                    if(y==(bloki[x].length-3)-xx && x>20+xx && x<30)
-                    {
-                    bloki[x][y].blokID=Kafelek.ziemia;
-                    } 
-               }
+         
                
                  
                   
@@ -81,7 +70,7 @@ public final class Poziom1 extends Poziom
     public void render(Graphics grap_arg)
     {
        //Rysowanie tla
-       grap_arg.setColor(new Color(83, 157, 164));
+       grap_arg.setColor(Color.yellow);
        grap_arg.fillRect(0, 0, piksele.width, piksele.height);
         
        

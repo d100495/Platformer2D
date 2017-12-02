@@ -25,6 +25,9 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     public static String tytul = "Platformer 2D";
     private static Image obrazekEkranu;
     
+    private final int FPS = 30;
+    private double averageFPS;
+    
     private static final int rozmiarPiksela = 2; //czyli jakby przyblizenie ekranu
     protected static final Dimension piksele = new Dimension(
             rozmiarOkna.width / rozmiarPiksela,
@@ -40,18 +43,17 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
      
      
     //Logika, poruszanie...
-    public static int scrollingX=0, scrollingY=-20;
+    public static int scrollingX, scrollingY;
     public static double kierunekPostaci=0;
-    
     
     public static boolean isCharacterMoving=false;
     public static boolean gameIsRunning = false;
-    private int FPS = 30;
-    private double averageFPS;
+
     
     //Poziomy,obiekty........
-    public static Poziom1 level_1;
-    public static PostacGracza postac_1;
+    public static Poziom level;
+    public static int nrPoziomu=1;
+    public static PostacGracza postac;
     
 
     
@@ -62,10 +64,10 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     {
             
     System.out.println("test");
+    
         //Obiekty
         new Kafelek(); //ładowanie obrazków
-        level_1 = new Poziom1();
-        postac_1 = new PostacGracza(100,250,Kafelek.kafelekSize, Kafelek.kafelekSize);
+        reload();
 
         //Pętla gry
         gameIsRunning = true; //rozpoczęcie gry
@@ -80,11 +82,41 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     }
 
     
+    public static void reload()
+    {
+        scrollingX=0;
+        scrollingY=-20;
+        
+        switch(nrPoziomu)
+        {
+            case 1:
+            {
+                level=new Poziom1(150, 15);
+                break;
+            }
+            
+            case 2:
+            {
+                level=new Poziom2(150, 20);
+                break;
+            }
+            
+            default:
+            {
+                level=new Poziom1(150, 10);
+                break;
+            }
+        }
+       
+        postac = new PostacGracza(100,250,Kafelek.kafelekSize, Kafelek.kafelekSize);
+    }
+    
+    
     
     public void tick() //wszystkie metody tick z obiektow
     {
-        level_1.tick();
-        postac_1.tick();
+        level.tick();
+        postac.tick();
     }
 
         //Zmienne do renderowania
@@ -96,6 +128,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         //    int chmuraY2= randomNumber.nextInt(200)+150;
         //    int chmuraY3 = randomNumber.nextInt(200)+150;
         //    int chmuraY4 = randomNumber.nextInt(200)+150;
+    
         Font myFont = new Font ("Courier New", 1, 9);
         Graphics graph1;
     public void render() 
@@ -104,8 +137,8 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
                  graph1 = obrazekEkranu.getGraphics(); // plansza nr1
             
         //Rendering (wszystkie metody render)
-                level_1.render(graph1);
-                postac_1.render(graph1);
+                level.render(graph1);
+                postac.render(graph1);
 
                 
         //Fps counter        
@@ -175,11 +208,11 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
 
         //Point windowCenterPoint=new Point();
         //windowCenterPoint= GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
-        Plansza component1 = new Plansza();
+        Plansza plansza1 = new Plansza();
 
         JFrame frame1 = new JFrame();
 
-        frame1.add(component1);
+        frame1.add(plansza1);
         frame1.pack(); //ustawia w i h komponentów okna do rozdzialki gry
         frame1.setResizable(true);
         frame1.setLocationRelativeTo(null); //centrowanie okna
@@ -188,7 +221,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame1.setVisible(true);
 
-        component1.start();
+        plansza1.start();
     }
 
 }

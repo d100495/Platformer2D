@@ -78,6 +78,11 @@ public class PostacGracza extends Postac
             klatkaAnimacji+=1;
         }
 
+        
+        if(y>=Plansza.level.bloki[0].length*Kafelek.kafelekSize)
+        {
+            Plansza.reload();
+        }
     }
 
 
@@ -160,10 +165,10 @@ public class PostacGracza extends Postac
         {
             for(int y = (int)(this.y/Kafelek.kafelekSize);y<(int)(this.y/Kafelek.kafelekSize+2);y++)
             {
-                if(x>=0&& y>=0 && x< Plansza.level_1.bloki.length && y<Plansza.level_1.bloki[0].length)
-                if(Plansza.level_1.bloki[x][y].blokID!=Kafelek.powietrze)
+                if(x>=0&& y>=0 && x< Plansza.level.bloki.length && y<Plansza.level.bloki[0].length)
+                if(Plansza.level.bloki[x][y].blokID!=Kafelek.powietrze)
                 {
-                     if(Plansza.level_1.bloki[x][y].contains(pkt1) || Plansza.level_1.bloki[x][y].contains(pkt2))
+                     if(Plansza.level.bloki[x][y].contains(pkt1) || Plansza.level.bloki[x][y].contains(pkt2))
                     {
                     return true;
                     }

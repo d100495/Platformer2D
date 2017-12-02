@@ -22,13 +22,13 @@ public class Blok extends Rectangle
     
     public void renderBlok(Graphics graph_arg)
     {
-        if(Plansza.postac_1.x<300)
+        if(Plansza.postac.x<300)
         {
           Plansza.scrollingX=0;  
         }
-        if(Plansza.postac_1.x>Plansza.level_1.bloki.length*Kafelek.kafelekSize-350)
+        if(Plansza.postac.x>Plansza.level.bloki.length*Kafelek.kafelekSize-350)
         {
-          Plansza.scrollingX=((int)Plansza.level_1.bloki.length)*Kafelek.kafelekSize-(Plansza.rozmiarOkna.width/2);
+          Plansza.scrollingX=((int)Plansza.level.bloki.length)*Kafelek.kafelekSize-(Plansza.rozmiarOkna.width/2);
         } //Ustawianie scrollingu do nie wychodzenia poza obszar planszy
         
         
