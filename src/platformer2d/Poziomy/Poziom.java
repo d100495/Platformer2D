@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package platformer2d;
+package platformer2d.Poziomy;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import platformer2d.Blok;
+import platformer2d.Kafelek;
 
 /**
  *

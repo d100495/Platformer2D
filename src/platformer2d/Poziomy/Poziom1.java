@@ -1,11 +1,14 @@
-package platformer2d;
+package platformer2d.Poziomy;
 
+import platformer2d.Poziomy.Poziom;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
+import platformer2d.Blok;
+import platformer2d.Kafelek;
 import static platformer2d.Plansza.piksele;
 import static platformer2d.Plansza.scrollingX;
 

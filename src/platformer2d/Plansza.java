@@ -1,5 +1,9 @@
 package platformer2d;
 
+import platformer2d.Postacie.PostacGracza;
+import platformer2d.Poziomy.Poziom2;
+import platformer2d.Poziomy.Poziom1;
+import platformer2d.Poziomy.Poziom;
 import java.applet.Applet;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,14 +26,14 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     //Wyglad ....
     //klasa Dimension zawiera parametry szerokosc i wysokosc do okna
     protected static final Dimension rozmiarOkna = new Dimension(1280, 720);
-    public static String tytul = "Platformer 2D";
+    private static String tytul = "Platformer 2D";
     private static Image obrazekEkranu;
     
     private final int FPS = 30;
     private double averageFPS;
     
-    private static final int rozmiarPiksela = 2; //czyli jakby przyblizenie ekranu
-    protected static final Dimension piksele = new Dimension(
+    static final int rozmiarPiksela = 2; //czyli jakby przyblizenie ekranu
+    public static final Dimension piksele = new Dimension(
             rozmiarOkna.width / rozmiarPiksela,
             rozmiarOkna.height / rozmiarPiksela);
 
@@ -44,9 +48,6 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
      
     //Logika, poruszanie...
     public static int scrollingX, scrollingY;
-    public static double kierunekPostaci=0;
-    
-    public static boolean isCharacterMoving=false;
     public static boolean gameIsRunning = false;
 
     
@@ -175,12 +176,12 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             tick();
             render();
 
-            URDTimeMillis = (System.nanoTime()-startTime)/1000000;
+            URDTimeMillis = ((System.nanoTime()-startTime)/10000000);
             waitTime=targetTime-URDTimeMillis;
             
             try  //predkosc gry
             {
-                Thread.sleep(25);
+                Thread.sleep(waitTime);
             } 
             catch (InterruptedException ex) {
                ex.printStackTrace();
