@@ -3,6 +3,7 @@ package platformer2d;
 import java.applet.Applet;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -45,8 +46,8 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     
     public static boolean isCharacterMoving=false;
     public static boolean gameIsRunning = false;
-    
-
+    private int FPS = 30;
+    private double averageFPS;
     
     //Poziomy,obiekty........
     public static Poziom1 level_1;
@@ -86,58 +87,33 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         postac_1.tick();
     }
 
-    //Zmienne do renderowania
-    //public static BufferedImage tloPlanszy=null;
-   // public static BufferedImage chmura=null;
-    
-//    Random randomNumber = new Random();
-//    int chmuraY1 = randomNumber.nextInt(200)+150;
-//    int chmuraY2= randomNumber.nextInt(200)+150;
-//    int chmuraY3 = randomNumber.nextInt(200)+150;
-//    int chmuraY4 = randomNumber.nextInt(200)+150;
-        
-    
+        //Zmienne do renderowania
+            //public static BufferedImage tloPlanszy=null;
+           // public static BufferedImage chmura=null;
+
+        //    Random randomNumber = new Random();
+        //    int chmuraY1 = randomNumber.nextInt(200)+150;
+        //    int chmuraY2= randomNumber.nextInt(200)+150;
+        //    int chmuraY3 = randomNumber.nextInt(200)+150;
+        //    int chmuraY4 = randomNumber.nextInt(200)+150;
+        Font myFont = new Font ("Courier New", 1, 9);
+        Graphics graph1;
     public void render() 
     {
         //Obiekty graficzne planszy
-                Graphics graph1 = obrazekEkranu.getGraphics(); // plansza nr1
-
-
-        //Pliki tła planszy
-                //File background_dayFile = new File(System.getProperty("user.dir")+"\\src\\resources\\background_day.jpg");  
-                Image chmura = new ImageIcon(System.getProperty("user.dir")+"\\src\\resources\\chmura1.png").getImage();   
-                //Image icon = new ImageIcon(System.getProperty("user.dir")+"\\src\\resources\\giphy.gif").getImage();  
-                try
-                {
-               // tloPlanszy = ImageIO.read(background_dayFile);
-                   // chmura = ImageIO.read(chmura_png);
-                    
-                }
-                catch(Exception e)
-               {
-               e.printStackTrace();
-               }
-
-               //graph1.drawImage(tloPlanszy, -scrollingX, 0, null);
-               
-               
-         //Rysowanie
-                graph1.setColor(new Color(83, 157, 164));
-                graph1.fillRect(0, 0, piksele.width, piksele.height);//tworzenie tła
-                graph1.drawImage(chmura, 2300-scrollingX, 150, this);  
-                graph1.drawImage(chmura, 650-scrollingX, 50, this);  
-                graph1.drawImage(chmura, 1200-scrollingX, 100, this);  
-                graph1.drawImage(chmura, 250-scrollingX, 140, this);       
-            
+                 graph1 = obrazekEkranu.getGraphics(); // plansza nr1
             
         //Rendering (wszystkie metody render)
-                level_1.renderPoziom(graph1);
+                level_1.render(graph1);
                 postac_1.render(graph1);
 
-        
-        
-        graph1 = getGraphics();
-        
+                
+        //Fps counter        
+        graph1.setColor(Color.yellow);
+        graph1.setFont(myFont);
+        graph1.drawString("FPS "+(int)averageFPS, 1, 6);
+        graph1 = getGraphics(); 
+       
         
 
         graph1.drawImage(obrazekEkranu, 0, 0, rozmiarOkna.width, rozmiarOkna.height, 0, 0, piksele.width, piksele.height, null);
@@ -152,12 +128,22 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         System.out.println("wchodze do kafelek/run");
         obrazekEkranu = createVolatileImage(piksele.width, piksele.height); // podwójne bufforowanie, żeby obraz nie skakał
         
+        long startTime;
+        long URDTimeMillis;
+        long waitTime;
+        long totalTime=0;
         
+        int frameCount=0; //to zliczamy
+        int maxFrameCount=FPS; //to fpscap
+        long targetTime=1000/FPS;
         while (gameIsRunning) 
         {
+            startTime=System.nanoTime();
             tick();
             render();
 
+            URDTimeMillis = (System.nanoTime()-startTime)/1000000;
+            waitTime=targetTime-URDTimeMillis;
             
             try  //predkosc gry
             {
@@ -167,6 +153,14 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
                ex.printStackTrace();
             }
 
+            totalTime+=System.nanoTime()-startTime;
+            frameCount++;
+            if(frameCount==maxFrameCount)
+            {
+                averageFPS=1000.0 /((totalTime/frameCount)/1000000);
+                frameCount=0;
+                totalTime=0;
+            }
         }
     }
     
