@@ -73,7 +73,7 @@ public final class Poziom2 extends Poziom
     public void render(Graphics grap_arg)
     {
        //Rysowanie tla
-       grap_arg.setColor(Color.yellow);
+       grap_arg.setColor(Color.orange);
        grap_arg.fillRect(0, 0, piksele.width, piksele.height);
         
        

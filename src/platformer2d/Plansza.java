@@ -29,7 +29,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     private static String tytul = "Platformer 2D";
     private static Image obrazekEkranu;
     
-    private final int FPS = 30;
+    private final int FPS =40;
     private double averageFPS;
     
     static final int rozmiarPiksela = 2; //czyli jakby przyblizenie ekranu
@@ -38,7 +38,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             rozmiarOkna.height / rozmiarPiksela);
 
     
-     public Plansza()
+    public Plansza()
     {
         setPreferredSize(rozmiarOkna);
         addKeyListener(new Sterowanie());
@@ -98,7 +98,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             
             case 2:
             {
-                level=new Poziom2(150, 20);
+                level=new Poziom2(20, 20);
                 break;
             }
             

@@ -18,6 +18,12 @@ public class PostacGracza extends Postac
     public static boolean isCharacterMoving=false;
     public static double kierunekPostaci=0;
     
+    public double grawitacja = 15;
+    public double predkoscPoruszania=7;
+    
+    public int animacja=0;
+    public int klatkaAnimacji = 0, czasAnimacji=2;
+    
     
      public PostacGracza(int szer, int wys)
     {
@@ -39,11 +45,7 @@ public class PostacGracza extends Postac
      
 
      
-    public double grawitacja = 15;
-    public double predkoscPoruszania=7;
-    
-    public int animacja=0;
-    public int klatkaAnimacji = 0, czasAnimacji=1;
+   
     
     
     @Override
@@ -130,7 +132,7 @@ public class PostacGracza extends Postac
             }
              
         }
-        else // poruszanie w prawo
+        else //rendering poruszanie w prawo
         {
             if(isCharacterMoving==true) 
             {
