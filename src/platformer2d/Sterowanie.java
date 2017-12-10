@@ -7,6 +7,7 @@ package platformer2d;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import platformer2d.Postacie.PostacGracza;
 
 /**
  *
@@ -28,16 +29,18 @@ public class Sterowanie implements KeyListener
         switch(klawisz)
         {
             case KeyEvent.VK_D:
-                Plansza.isCharacterMoving=true;
-                Plansza.kierunekPostaci = Plansza.postac_1.predkoscPoruszania;
+                PostacGracza.isCharacterMoving=true;
+                PostacGracza.kierunekPostaci = Plansza.postac.predkoscPoruszania;
             break;
             
             case KeyEvent.VK_A:
-                Plansza.isCharacterMoving=true;
-                Plansza.kierunekPostaci = -Plansza.postac_1.predkoscPoruszania;
+                PostacGracza.isCharacterMoving=true;
+                PostacGracza.kierunekPostaci = -Plansza.postac.predkoscPoruszania;
             break;
             
-            
+             case KeyEvent.VK_SPACE:
+                Plansza.isJumping=true;
+            break;
                 
             
         }
@@ -51,17 +54,21 @@ public class Sterowanie implements KeyListener
         switch(klawisz)
         {
             case KeyEvent.VK_D:
-                if(Plansza.kierunekPostaci==Plansza.postac_1.predkoscPoruszania)
+                if(PostacGracza.kierunekPostaci==Plansza.postac.predkoscPoruszania)
                 {
-                    Plansza.isCharacterMoving =false;
+                    PostacGracza.isCharacterMoving =false;
                 }
             break;
             
             case KeyEvent.VK_A:
-               if(Plansza.kierunekPostaci==-Plansza.postac_1.predkoscPoruszania)
+               if(PostacGracza.kierunekPostaci==-Plansza.postac.predkoscPoruszania)
                 {
-                    Plansza.isCharacterMoving =false;
+                    PostacGracza.isCharacterMoving =false;
                 }
+            break;
+            
+            case KeyEvent.VK_SPACE:
+                    Plansza.isJumping=false;
             break;
         }
     }
