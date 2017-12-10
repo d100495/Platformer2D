@@ -9,11 +9,17 @@ import javax.imageio.*;
 
 public class Kafelek //moze sie skladac z wiekszej ilosci blokow
 {
+    //bloki
     public static int[] powietrze = {-1,-1};
     public static int[] ziemia = {0,0};
+    public static int [] trawa = {1,0};
+       
+       
+    //postaci
     public static int[] postacGraczaIdle = {0,19};
     public static int [] postacGraczaRun = {0,18};
-    public static int [] trawa = {1,0};
+    public static int [] postacGraczaJump = {0,17};
+    public static int [] postacGraczaFallingDown = {0,16};
     
     public static BufferedImage kafelki_teren;
     public static int kafelekSize = 32;

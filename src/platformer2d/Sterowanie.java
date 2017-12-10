@@ -69,6 +69,7 @@ public class Sterowanie implements KeyListener
             
             case KeyEvent.VK_SPACE:
                     Plansza.isJumping=false;
+                    PostacGracza.isCharacterFallngDown=true;
             break;
         }
     }
