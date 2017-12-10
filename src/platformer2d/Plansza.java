@@ -47,8 +47,9 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
      
      
     //Logika, poruszanie...
-    public static int scrollingX, scrollingY;
+    public static int scrollingX=0, scrollingY=0;
     public static boolean gameIsRunning = false;
+    public static boolean isJumping=false;
 
     
     //Poziomy,obiekty........
@@ -85,31 +86,33 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     
     public static void reload()
     {
-        scrollingX=0;
-        scrollingY=-20;
+        
+        postac = new PostacGracza(100,520,Kafelek.kafelekSize, Kafelek.kafelekSize);
+         
+        scrollingX=(int)postac.x;
+        scrollingY=(int)postac.y-200;
         
         switch(nrPoziomu)
         {
             case 1:
             {
-                level=new Poziom1(150, 15);
+                level=new Poziom1(150, 20); // 2 wartosc nieparzysta (tymczasowo)
                 break;
             }
             
             case 2:
             {
-                level=new Poziom2(20, 20);
+                level=new Poziom2(20, 20); 
                 break;
             }
             
             default:
             {
-                level=new Poziom1(150, 10);
+                level=new Poziom1(150, 10); 
                 break;
             }
         }
        
-        postac = new PostacGracza(100,250,Kafelek.kafelekSize, Kafelek.kafelekSize);
     }
     
     
@@ -181,7 +184,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             
             try  //predkosc gry
             {
-                Thread.sleep(waitTime);
+                Thread.sleep(6); // niestety nie moge lockowac fpsow, bo gra dziala za wolno, a jak przestawie predkosc poruszania lub grawitacje, to psuja sie kolizje
             } 
             catch (InterruptedException ex) {
                ex.printStackTrace();

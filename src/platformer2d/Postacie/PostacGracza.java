@@ -17,18 +17,25 @@ public class PostacGracza extends Postac
     
     public static boolean isCharacterMoving=false;
     public static double kierunekPostaci=0;
+    public static boolean isCharacterJumping=false;
     
-    public double grawitacja = 15;
-    public double predkoscPoruszania=7;
+    public final double grawitacja = 2;
+    public final double predkoscPoruszania=2;
+    public final double predkoscWznoszenia=grawitacja;
+    
+    public final double wysokoscSkoku=50;
+    public int iloscSkokow=0;
+    
     
     public int animacja=0;
-    public int klatkaAnimacji = 0, czasAnimacji=2;
+    public int klatkaAnimacji = 0;
+    public final int czasAnimacji=15;
     
     
      public PostacGracza(int szer, int wys)
     {
         this.x=((Plansza.piksele.width/2)-(szer/2));
-        this.y=((Plansza.piksele.height/2)-(wys)/2);       
+        this.y=((Plansza.piksele.height/2)-(wys/2));       
 
         this.szer=szer;
         this.wys=wys;
@@ -51,28 +58,85 @@ public class PostacGracza extends Postac
     @Override
     public void tick() 
     {
-        Point puntk_1 = new Point((int)x,(int)(y+wys));
-        Point punkt_2 = new Point((int)(x+szer),(int)(y+wys));
-       
-        if(!kolizjaBlok(puntk_1, punkt_2))
+        Point puntk_1 = new Point((int)x+2,(int)(y+wys)); //lewo dol
+        Point punkt_2 = new Point((int)(x+szer-2),(int)(y+wys)); //prawo dol
+     
+        if(!kolizjaBlok(puntk_1, punkt_2) && !isCharacterJumping) //kolizja dol
         {
             y+=grawitacja;
             Plansza.scrollingY+=grawitacja;
         }
-        
-
-        
-        if(isCharacterMoving==true)
+        else
         {
-            x+=kierunekPostaci;
-            Plansza.scrollingX+=kierunekPostaci;
+               if(Plansza.isJumping)
+            {
+               isCharacterJumping=true;
+            }
         }
+        
+        
+        
+        if(isCharacterMoving)
+        {
+            boolean zablokujRuch=false;
+            
+            if(kierunekPostaci == predkoscPoruszania) // kolizja z prawej
+            {
+                Point punkt_4 = new Point((int)(this.x+this.szer+1),(int)(y)); //prawo gora
+                Point punkt_5 = new Point((int)(this.x+this.szer+1),(int)(y+wys)-2); //prawaao dol -fix na y
+                zablokujRuch = kolizjaBlok(punkt_4,punkt_5);
+            }
+            
+            else if(kierunekPostaci == (-predkoscPoruszania)) //kozlija z lewej
+            {
+                Point punkt_3 = new Point((int)x-1,(int)(y)); //lewo gora
+                Point punkt_6 = new Point((int)x-1,(int)((y+wys)-2));  //lewo dol -fix na y
+                zablokujRuch = kolizjaBlok(punkt_6,punkt_3);
+            }
+
+            
+            if(!zablokujRuch)
+            {
+               x+=kierunekPostaci;
+               Plansza.scrollingX+=kierunekPostaci; 
+            }
+        }
+        
+        
+        if(isCharacterJumping)
+        {
+                Point punkt_3 = new Point((int)x+2,(int)(y)); //lewo gora
+                Point punkt_4 = new Point((int)(this.x+this.szer-2),(int)(y)); //prawo gora
+                
+                if(!kolizjaBlok(punkt_3, punkt_4))
+                {
+                    if(iloscSkokow>=wysokoscSkoku)
+                    {
+                        isCharacterJumping=false;
+                        iloscSkokow=0;
+                    }
+                    else
+                    {
+                        y-=predkoscWznoszenia;
+                        Plansza.scrollingY-=predkoscWznoszenia;
+                        iloscSkokow+=1;
+                    }
+                }
+                else
+                {
+                    isCharacterJumping=false;
+                    iloscSkokow=0;
+                }
+            
+          
+        }
+       
       
         
         
         if(klatkaAnimacji>=czasAnimacji) //Animacje
         {
-             if(animacja>=7) //Na razie 4 ,bo mi sie nie chce wincyj
+             if(animacja>=7) //Na razie 7 ,bo mi sie nie chce wincyj
             {
                 animacja=0;
             }
@@ -89,7 +153,7 @@ public class PostacGracza extends Postac
         }
 
         
-        if(y>=Plansza.level.bloki[0].length*Kafelek.kafelekSize)
+        if(y>=Plansza.level.bloki[0].length*Kafelek.kafelekSize) //spadanie
         {
             Plansza.reload();
         }
@@ -171,9 +235,9 @@ public class PostacGracza extends Postac
     
     public boolean kolizjaBlok(Point pkt1, Point pkt2)
     {
-        for(int x = (int)(this.x/Kafelek.kafelekSize);x<(int)(this.x/Kafelek.kafelekSize+2);x++)
+        for(int x = (int)(this.x/Kafelek.kafelekSize);x<(int)(this.x/(Kafelek.kafelekSize)+2);x++)
         {
-            for(int y = (int)(this.y/Kafelek.kafelekSize);y<(int)(this.y/Kafelek.kafelekSize+2);y++)
+            for(int y = (int)(this.y/Kafelek.kafelekSize);y<(int)(this.y/(Kafelek.kafelekSize)+2);y++)
             {
                 if(x>=0&& y>=0 && x< Plansza.level.bloki.length && y<Plansza.level.bloki[0].length)
                 if(Plansza.level.bloki[x][y].blokID!=Kafelek.powietrze)

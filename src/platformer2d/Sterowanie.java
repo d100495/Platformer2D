@@ -38,7 +38,9 @@ public class Sterowanie implements KeyListener
                 PostacGracza.kierunekPostaci = -Plansza.postac.predkoscPoruszania;
             break;
             
-            
+             case KeyEvent.VK_SPACE:
+                Plansza.isJumping=true;
+            break;
                 
             
         }
@@ -63,6 +65,10 @@ public class Sterowanie implements KeyListener
                 {
                     PostacGracza.isCharacterMoving =false;
                 }
+            break;
+            
+            case KeyEvent.VK_SPACE:
+                    Plansza.isJumping=false;
             break;
         }
     }
