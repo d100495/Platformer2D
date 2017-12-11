@@ -15,32 +15,6 @@ import platformer2d.Kafelek;
 public abstract class Postac 
 {        
     public double x,y,szer,wys;
-
-    
-    public Postac()
-    {
-        this.x = 100;
-        this.y = 100;
-        this.szer=Kafelek.kafelekSize;
-        this.wys=Kafelek.kafelekSize;
-    }
-    
-    
-    public Postac(double x, double y, double szer, double wys)
-    {
-        this.x=x;
-        this.y=y;
-        this.szer=szer;
-        this.wys=wys;
-    }
-    
-        public Postac(int x, int y, int szer, int wys)
-    {
-        this.x=x;
-        this.y=y;
-        this.szer=szer;
-        this.wys=wys;
-    }
     
      public abstract void tick();
      public abstract void render(Graphics graph_arg);
