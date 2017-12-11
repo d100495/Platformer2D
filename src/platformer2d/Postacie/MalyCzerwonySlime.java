@@ -20,7 +20,7 @@ public class MalyCzerwonySlime extends Postac
 {
 
     
-    public static double kierunekPostaci=0;
+    public double kierunekPostaci=1;
     public final double grawitacja = 2;
     public final double predkoscPoruszania=0.3;
     
@@ -29,7 +29,9 @@ public class MalyCzerwonySlime extends Postac
     public int klatkaAnimacji = 0;
     public final int czasAnimacji=10;
     
-    public boolean umieranie=false;
+    public boolean czyNazdepniety = false;
+
+   
     
     
     public MalyCzerwonySlime(int x, int y, int szer, int wys)
@@ -53,27 +55,40 @@ public class MalyCzerwonySlime extends Postac
         }
        
     
-        if(kierunekPostaci==0)
+       if(this.kierunekPostaci==0)  //Logika poruszania sie slima
         {
-            x+=predkoscPoruszania;
-            if(x>400)
-            {
-                kierunekPostaci=1;
+            this.x+=this.predkoscPoruszania;
+            
+            Point punkt_3 = new Point((int)x+2,(int)(y)); //lewo gora
+                Point punkt_4 = new Point((int)(this.x+this.szer-2),(int)(y)); //prawo gora
+            
+            if(kolizjaBlok(punkt_4,punkt_3))
+            { 
+                this.kierunekPostaci=1;
             }
         }
-        if(kierunekPostaci==1)
+        
+        if(this.kierunekPostaci==1)
         {
-             x-=predkoscPoruszania;
-            if(x<100)
-            {
-                kierunekPostaci=0;
+             this.x-=this.predkoscPoruszania;
+             
+            Point punkt_3 = new Point((int)x+2,(int)(y)); //lewo gora
+                Point punkt_4 = new Point((int)(this.x+this.szer-2),(int)(y)); //prawo gora
+            
+            if(kolizjaBlok(punkt_4,punkt_3))
+            { 
+                this.kierunekPostaci=0;
             }
+             
         }
      
         
+        
+        
+        
         if(klatkaAnimacji>=czasAnimacji) //Animacje
         {
-             if(animacja>=8) //Na razie 7 ,bo mi sie nie chce wincyj
+             if(animacja>=9) //Na razie 7 ,bo mi sie nie chce wincyj
             {
                 animacja=0;
             }
@@ -90,18 +105,30 @@ public class MalyCzerwonySlime extends Postac
             klatkaAnimacji+=1;
         }
         
-        
+         
+        //Wykrywanie wypadniecia poza plansze
+         if((this.x>=0&& this.y>=0 
+                 && this.x< Plansza.level.bloki.length*Kafelek.kafelekSize 
+                 && this.y<Plansza.level.bloki[0].length*Kafelek.kafelekSize)==false)
+        {
+            this.czyUmar=true;
+        }
         
         
         if(kolizjaGracz(Plansza.postac, this)) //logika kolizji z graczem
         {
-            umieranie=true;
+            czyNazdepniety=true;
         }
         else
         {
             
-            umieranie=false;
+            czyNazdepniety=false;
         }
+        
+        
+           
+            
+           
     }
     
 
@@ -114,7 +141,7 @@ public class MalyCzerwonySlime extends Postac
                 if(kierunekPostaci == predkoscPoruszania)
                 {
                      
-                     if(umieranie==true)
+                     if(czyNazdepniety==true)
                     {
                      graph_arg.drawImage(
                             Kafelek.kafelki_teren, 
@@ -152,7 +179,7 @@ public class MalyCzerwonySlime extends Postac
                     //rendering poruszanie w prawo
                     //=============================
 
-                    if(umieranie==true)
+                    if(czyNazdepniety==true)
                     {
                         graph_arg.drawImage(
                         Kafelek.kafelki_teren, 

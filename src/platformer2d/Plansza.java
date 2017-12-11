@@ -88,6 +88,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     }
 
     
+    
     @Override
     public void stop() 
     {
@@ -169,11 +170,19 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         postac.tick();
         
         
-            for(Postac x : mobArrayList)
+            for(int i =0;i<mobArrayList.size();i++)
             {
-                x.tick();
+                mobArrayList.get(i).tick();
+                if(mobArrayList.get(i).czyUmar==true)
+                {
+                    System.out.println("mob " + i +" z klasy " + mobArrayList.get(i).getClass() + " umar ");
+                    System.out.println("Pozostało: " + mobArrayList.size()+ " mobow");
+                    mobArrayList.remove(i);
+                }
             }
 
+            
+            
         }
         
         

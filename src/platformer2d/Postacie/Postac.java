@@ -15,9 +15,12 @@ import platformer2d.Kafelek;
 public abstract class Postac 
 {        
     public double x,y,szer,wys;
-    
+     public boolean czyUmar=false;
+     
      public abstract void tick();
      public abstract void render(Graphics graph_arg);
     
+     
+     
  
 }

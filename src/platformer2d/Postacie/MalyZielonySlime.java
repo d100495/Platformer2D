@@ -20,7 +20,7 @@ public class MalyZielonySlime extends Postac
 {
 
     
-    public static double kierunekPostaci=0;
+    public double kierunekPostaci=1;
     public final double grawitacja = 2;
     public final double predkoscPoruszania=0.3;
     
@@ -51,22 +51,52 @@ public class MalyZielonySlime extends Postac
         }
        
     
-        if(kierunekPostaci==0)
+//        if(kierunekPostaci==0)
+//        {
+//            x+=predkoscPoruszania;
+//            if(x>400)
+//            {
+//                kierunekPostaci=1;
+//            }
+//        }
+//        if(kierunekPostaci==1)
+//        {
+//             x-=predkoscPoruszania;
+//            if(x<100)
+//            {
+//                kierunekPostaci=0;
+//            }
+//        }
+        
+          if(this.kierunekPostaci==0)  //Logika poruszania sie slima
         {
-            x+=predkoscPoruszania;
-            if(x>400)
-            {
-                kierunekPostaci=1;
+            this.x+=this.predkoscPoruszania;
+            
+            Point punkt_3 = new Point((int)x+2,(int)(y)); //lewo gora
+                Point punkt_4 = new Point((int)(this.x+this.szer-2),(int)(y)); //prawo gora
+            
+            if(kolizjaBlok(punkt_4,punkt_3))
+            { 
+                this.kierunekPostaci=1;
             }
         }
-        if(kierunekPostaci==1)
+        
+        if(this.kierunekPostaci==1)
         {
-             x-=predkoscPoruszania;
-            if(x<100)
-            {
-                kierunekPostaci=0;
+             this.x-=this.predkoscPoruszania;
+             
+            Point punkt_3 = new Point((int)x+2,(int)(y)); //lewo gora
+                Point punkt_4 = new Point((int)(this.x+this.szer-2),(int)(y)); //prawo gora
+            
+            if(kolizjaBlok(punkt_4,punkt_3))
+            { 
+                this.kierunekPostaci=0;
             }
+             
         }
+        
+        
+        
      
         
         if(klatkaAnimacji>=czasAnimacji) //Animacje
@@ -87,7 +117,13 @@ public class MalyZielonySlime extends Postac
             klatkaAnimacji+=1;
         }
         
-        
+          //Wykrywanie wypadniecia poza plansze
+         if((this.x>=0&& this.y>=0 
+                 && this.x< Plansza.level.bloki.length*Kafelek.kafelekSize 
+                 && this.y<Plansza.level.bloki[0].length*Kafelek.kafelekSize)==false)
+        {
+            this.czyUmar=true;
+        }
         
         
         if(kolizjaGracz(Plansza.postac, this)) //logika kolizji z graczem

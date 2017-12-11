@@ -24,7 +24,7 @@ import static platformer2d.Plansza.piksele;
 public class Menu 
 {
     public static int wybranaOpcja = 0;
-    private int wyswietlPomoc=1;
+    private int wyswietlPomoc=-1;
     
     public static String[] menuOptions = {
 		"Graj",
