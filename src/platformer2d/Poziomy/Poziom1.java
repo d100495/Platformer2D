@@ -42,15 +42,14 @@ public final class Poziom1 extends Poziom
         {
             for(int y=0; y<bloki[x].length;y++)
             {
-               if(x==0 || y ==0 || x==bloki.length-1 || y==bloki[x].length-1)
-               {
-                   bloki[x][y].blokID=Kafelek.ziemia;
-               }
+               
                
                if(y==bloki[x].length-2)
                {
                    bloki[x][y].blokID=Kafelek.trawa;
                }
+               
+               
                
                if((x==0 || x==bloki.length-1) && y==bloki[x].length-2)
                {
@@ -64,28 +63,27 @@ public final class Poziom1 extends Poziom
                     bloki[x][y].blokID=Kafelek.ziemia;
                     } 
                }
+
+                 if(((x>42 && x<=44) && y==bloki[x].length-5)) //pierwsza kładka
+               {
+                   bloki[x][y].blokID=Kafelek.ziemia;
+               }
                
+                 
+               if(x==0 || y ==0 || x==bloki.length-1 || y==bloki[x].length-1) //OBRAMOWANIE =====================
+               {
+                   bloki[x][y].blokID=Kafelek.ziemia;
+               }
                
                if(((x>40 && x<=50) && (y==bloki[x].length-2 || y==bloki[x].length-1))) //pierwsza przepasc
                {
                    bloki[x][y].blokID=Kafelek.powietrze;
                }
                
-               
-                 if(((x>42 && x<=44) && y==bloki[x].length-5)) //pierwsza kładka
-               {
-                   bloki[x][y].blokID=Kafelek.ziemia;
-               }
-               
-               
-                 if(((x>70 && x<75) && (y==bloki[x].length-2 || y==bloki[x].length-1))) //druga przepasc
+                  if(((x>70 && x<75) && (y==bloki[x].length-2 || y==bloki[x].length-1))) //druga przepasc
                {
                    bloki[x][y].blokID=Kafelek.powietrze;
                }
-               
-               
-                 
-                  
             }
         }
     }
