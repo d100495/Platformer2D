@@ -24,7 +24,7 @@ public class PostacGracza extends Postac
     public final double predkoscPoruszania=2;
     public final double predkoscWznoszenia=grawitacja;
     
-    public final double wysokoscSkoku=50;
+    public final double wysokoscSkoku=54;
     public int iloscSkokow=0;
     
     

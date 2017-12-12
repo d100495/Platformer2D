@@ -110,18 +110,19 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             {
                 level=new Poziom1(250, 20); // 2 wartosc nieparzysta (tymczasowo)
                 
-                
-                
                 mobArrayList=new ArrayList<>();
-                for(int i=0; i<20;i++)
+                
+                for(int i=0; i<20;i++)//Zielone SLIMY
                 {
                     mobArrayList.add(new MalyZielonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
                             ,100
                             ,Kafelek.kafelekSize/2
-                            ,Kafelek.kafelekSize/2));
+                            ,Kafelek.kafelekSize/2
+                            ,new Random().nextDouble()*(0.1 + (1.5 - 0.1)) 
+                    ));
                 }
                 
-                 for(int i=0; i<50;i++)
+                 for(int i=0; i<50;i++)//Czerwone SLIMY
                 {
                     mobArrayList.add(new MalyCzerwonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
                             ,100
@@ -137,17 +138,28 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             
             case 2:
             {
-                level=new Poziom2(20, 20); 
+                level=new Poziom2(40, 20); 
                 
                 mobArrayList=new ArrayList<>();
-                for(int i=0; i<50;i++)
+                
+                 for(int i=0; i<50;i++) //Czerwone SLIMY
                 {
-                    mobArrayList.add(new MalyZielonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
+                    mobArrayList.add(new MalyCzerwonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
                             ,100
                             ,Kafelek.kafelekSize/2
                             ,Kafelek.kafelekSize/2));
                 }
                 
+                   for(int i=0; i<3;i++) //Zielone SLIMY
+                {
+                    mobArrayList.add(new MalyZielonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
+                            ,100
+                            ,Kafelek.kafelekSize/2
+                            ,Kafelek.kafelekSize/2
+                            ,new Random().nextDouble()*(0.1 + (1.5 - 0.1)) 
+                    ));
+                }
+                 
                 break;
             }
             

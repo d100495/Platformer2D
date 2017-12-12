@@ -22,7 +22,7 @@ public class MalyZielonySlime extends Postac
     
     public double kierunekPostaci=1;
     public final double grawitacja = 2;
-    public final double predkoscPoruszania=0.3;
+    public double predkoscPoruszania=0.3;
     
    
     public int animacja=0;
@@ -30,12 +30,13 @@ public class MalyZielonySlime extends Postac
     public final int czasAnimacji=10;
     
     
-    public MalyZielonySlime(int x, int y, int szer, int wys)
+    public MalyZielonySlime(int x, int y, int szer, int wys,double predkoscporuszania)
     {
         this.x=x;
         this.y=y;
         this.szer=szer;
         this.wys=wys;
+        this.predkoscPoruszania=predkoscporuszania;
     }
     
     @Override
@@ -139,7 +140,7 @@ public class MalyZielonySlime extends Postac
          //=============================
         //rendering poruszanie w lewo
         //=============================
-                if(kierunekPostaci == predkoscPoruszania)
+                if(kierunekPostaci == 1)
                 {
                      
                             graph_arg.drawImage(

@@ -56,7 +56,7 @@ public final class Poziom1 extends Poziom
                    bloki[x][y].blokID=Kafelek.ziemia;
                }
                
-               for(int xx=0;xx<12;xx++) //schodki
+               for(int xx=0;xx<6;xx++) //schodki
                {
                     if(y==(bloki[x].length-3)-xx+1 && x>20+xx && x<30)
                     {
@@ -97,6 +97,7 @@ public final class Poziom1 extends Poziom
     
     
     Image chmura = new ImageIcon(System.getProperty("user.dir") + "\\src\\resources\\chmura1.png").getImage();
+     Image drzewo = new ImageIcon(System.getProperty("user.dir") + "\\src\\resources\\tree.png").getImage();
     
     @Override
     public void render(Graphics grap_arg)
@@ -117,7 +118,9 @@ public final class Poziom1 extends Poziom
        
        //Rysowanie dodatkow
         grap_arg.drawImage(chmura, 250-scrollingX, 340-Plansza.scrollingY, null);  
+        grap_arg.drawImage(drzewo, 350-scrollingX, 328-Plansza.scrollingY, null);  
         grap_arg.drawImage(chmura, 550-scrollingX, 240-Plansza.scrollingY, null);  
+        grap_arg.drawImage(drzewo, 1000-scrollingX, 328-Plansza.scrollingY, null);  
         grap_arg.drawImage(chmura, 950-scrollingX, 150-Plansza.scrollingY, null);  
         grap_arg.drawImage(chmura, 1150-scrollingX, 200-Plansza.scrollingY, null);  
         grap_arg.drawImage(chmura, 1600-scrollingX, 400-Plansza.scrollingY, null);  

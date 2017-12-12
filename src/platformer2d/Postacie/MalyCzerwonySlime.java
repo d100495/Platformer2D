@@ -138,7 +138,7 @@ public class MalyCzerwonySlime extends Postac
          //=============================
         //rendering poruszanie w lewo
         //=============================
-                if(kierunekPostaci == predkoscPoruszania)
+                if(kierunekPostaci == 1)
                 {
                      
                      if(czyNazdepniety==true)
@@ -175,6 +175,7 @@ public class MalyCzerwonySlime extends Postac
                             
                             
                 }
+                else{
                     //=============================
                     //rendering poruszanie w prawo
                     //=============================
@@ -210,6 +211,7 @@ public class MalyCzerwonySlime extends Postac
                     }
     
                 }
+    }
     
     
     
