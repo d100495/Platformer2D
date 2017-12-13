@@ -20,14 +20,14 @@ public class MalyZielonySlime extends Postac
 {
 
     
-    public double kierunekPostaci=1;
-    public final double grawitacja = 2;
-    public double predkoscPoruszania=0.3;
+    private double kierunekPostaci=1;
+    private final double grawitacja = 2;
+    private double predkoscPoruszania=0.3;
     
    
-    public int animacja=0;
-    public int klatkaAnimacji = 0;
-    public final int czasAnimacji=10;
+    private int animacja=0;
+    private int klatkaAnimacji = 0;
+    private final int czasAnimacji=10;
     
     
     public MalyZielonySlime(int x, int y, int szer, int wys,double predkoscporuszania)
@@ -129,8 +129,21 @@ public class MalyZielonySlime extends Postac
         
         if(kolizjaGracz(Plansza.postac, this)) //logika kolizji z graczem
         {
-            Plansza.reload();
+            
+            if(PostacGracza.isCharacterFlinching==false)
+            {
+                PostacGracza.isCharacterFlinching = true;
+                PostacGracza.flinchTimer = System.nanoTime();
+                System.out.println("FLINCHING");
+            }
+            else
+            {
+                
+            }
+            //Plansza.reload();
         }
+        
+        
     }
     
 

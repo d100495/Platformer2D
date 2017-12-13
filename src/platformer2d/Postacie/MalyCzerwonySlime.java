@@ -20,16 +20,16 @@ public class MalyCzerwonySlime extends Postac
 {
 
     
-    public double kierunekPostaci=1;
-    public final double grawitacja = 2;
-    public final double predkoscPoruszania=0.3;
+    private double kierunekPostaci=1;
+    private final double grawitacja = 2;
+    private final double predkoscPoruszania=0.3;
     
    
-    public int animacja=0;
-    public int klatkaAnimacji = 0;
-    public final int czasAnimacji=10;
+    private int animacja=0;
+    private int klatkaAnimacji = 0;
+    private final int czasAnimacji=10;
     
-    public boolean czyNazdepniety = false;
+    private boolean czyNazdepniety = false;
 
    
     

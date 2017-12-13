@@ -19,18 +19,20 @@ public class PostacGracza extends Postac
     public static double kierunekPostaci=0;
     public static boolean isCharacterJumping=false;
     public static boolean isCharacterFallngDown=false;
+    public static boolean isCharacterFlinching=false;
+    public static long flinchTimer=0;
     
-    public final double grawitacja = 2;
+    private final double grawitacja = 2;
     public final double predkoscPoruszania=2;
-    public final double predkoscWznoszenia=grawitacja;
+    private final double predkoscWznoszenia=grawitacja;
     
-    public final double wysokoscSkoku=54;
-    public int iloscSkokow=0;
+    private final double wysokoscSkoku=54;
+    private int iloscSkokow=0;
     
     
-    public int animacja=0;
-    public int klatkaAnimacji = 0;
-    public final int czasAnimacji=10;
+    private int animacja=0;
+    private int klatkaAnimacji = 0;
+    private final int czasAnimacji=10;
     
     
      public PostacGracza(int szer, int wys)
@@ -134,11 +136,19 @@ public class PostacGracza extends Postac
                     iloscSkokow=0;
 
                 }
-            
-          
+  
         }
+        
        
-      
+      if(isCharacterFlinching==true) //postac po otrzymaniu obrazen
+        {
+		long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
+                
+		if(elapsed > 1000) 
+                {
+                    isCharacterFlinching = false;
+		}
+	}
         
         
         if(klatkaAnimacji>=czasAnimacji) //Animacje
@@ -172,6 +182,7 @@ public class PostacGracza extends Postac
     public void render(Graphics graph_arg) 
     {
         
+         
         //=============================
         //rendering poruszanie w lewo
         //=============================
@@ -387,6 +398,22 @@ public class PostacGracza extends Postac
             
         }
         
+        
+        
+         if(isCharacterFlinching==true)
+        {
+            graph_arg.drawImage(
+                Kafelek.kafelki_teren, 
+                (int)x - Plansza.scrollingX, 
+                (int)y - Plansza.scrollingY,
+                (int)(x+szer)- Plansza.scrollingX,
+                (int)(y+wys) - Plansza.scrollingY,
+                Kafelek.pustyTile[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja),
+                Kafelek.pustyTile[1]*Kafelek.kafelekSize,
+                Kafelek.pustyTile[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja)+(int)szer,
+                Kafelek.pustyTile[1]*Kafelek.kafelekSize+(int)wys,
+                null);
+        }
         
         
         

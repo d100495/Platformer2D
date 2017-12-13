@@ -52,7 +52,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
      
     //Logika, poruszanie...
     public static int scrollingX=0, scrollingY=0;
-    public static boolean gameIsRunning = false;
+    private static boolean gameIsRunning = false;
     public static boolean isJumping=false;
 
     
@@ -60,7 +60,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     public static Poziom level;
     public static int nrPoziomu=1;
     public static PostacGracza postac;
-    public static ArrayList<Postac> mobArrayList;
+    private static ArrayList<Postac> mobArrayList;
 
     
     //Menu
@@ -68,7 +68,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     {
         MENU,GAME
     };
-    public static STATE GameState=STATE.GAME;
+    public static STATE GameState=STATE.MENU;
     
     public static Menu menu = new Menu();
     
@@ -108,7 +108,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         {
             case 1:
             {
-                level=new Poziom1(250, 20); // 2 wartosc nieparzysta (tymczasowo)
+                level=new Poziom1(150, 20); // 2 wartosc nieparzysta (tymczasowo)
                 
                 mobArrayList=new ArrayList<>();
                 
@@ -122,7 +122,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
                     ));
                 }
                 
-                 for(int i=0; i<50;i++)//Czerwone SLIMY
+                 for(int i=0; i<40;i++)//Czerwone SLIMY
                 {
                     mobArrayList.add(new MalyCzerwonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
                             ,100
