@@ -9,6 +9,7 @@ import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
 import platformer2d.Blok;
 import platformer2d.Kafelek;
+import platformer2d.Plansza;
 import static platformer2d.Plansza.piksele;
 import static platformer2d.Plansza.scrollingX;
 
@@ -67,7 +68,8 @@ public final class Poziom2 extends Poziom
     }
     
     
-    Image chmura = new ImageIcon(System.getProperty("user.dir") + "\\src\\resources\\chmura1.png").getImage();
+    Image chmura = new ImageIcon(System.getProperty("user.dir") + "\\src\\resources\\tree.png").getImage();
+      Image drzewo = new ImageIcon(System.getProperty("user.dir") + "\\src\\resources\\tree.png").getImage();
     
     @Override
     public void render(Graphics grap_arg)
@@ -87,10 +89,13 @@ public final class Poziom2 extends Poziom
     
        
        //Rysowanie dodatkow
-        grap_arg.drawImage(chmura, 2300-scrollingX, 150, null);  
-        grap_arg.drawImage(chmura, 650-scrollingX, 50, null);  
-        grap_arg.drawImage(chmura, 1200-scrollingX, 100, null);  
-        grap_arg.drawImage(chmura, 250-scrollingX, 140, null);  
+        grap_arg.drawImage(chmura, 250-scrollingX, 328-Plansza.scrollingY, null);  
+        grap_arg.drawImage(chmura, 550-scrollingX, 328-Plansza.scrollingY, null);  
+        grap_arg.drawImage(chmura, 950-scrollingX, 150-Plansza.scrollingY, null);  
+        grap_arg.drawImage(chmura, 1150-scrollingX, 200-Plansza.scrollingY, null);  
+        grap_arg.drawImage(chmura, 1600-scrollingX, 400-Plansza.scrollingY, null);  
+        grap_arg.drawImage(chmura, 1800-scrollingX, 340-Plansza.scrollingY, null);  
+        grap_arg.drawImage(chmura, 2300-scrollingX, 350-Plansza.scrollingY, null);  
       
        
       

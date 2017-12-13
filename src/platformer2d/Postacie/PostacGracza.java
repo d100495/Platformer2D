@@ -18,18 +18,21 @@ public class PostacGracza extends Postac
     public static boolean isCharacterMoving=false;
     public static double kierunekPostaci=0;
     public static boolean isCharacterJumping=false;
+    public static boolean isCharacterFallngDown=false;
+    public static boolean isCharacterFlinching=false;
+    public static long flinchTimer=0;
     
-    public final double grawitacja = 2;
+    private final double grawitacja = 2;
     public final double predkoscPoruszania=2;
-    public final double predkoscWznoszenia=grawitacja;
+    private final double predkoscWznoszenia=grawitacja;
     
-    public final double wysokoscSkoku=50;
-    public int iloscSkokow=0;
+    private final double wysokoscSkoku=54;
+    private int iloscSkokow=0;
     
     
-    public int animacja=0;
-    public int klatkaAnimacji = 0;
-    public final int czasAnimacji=15;
+    private int animacja=0;
+    private int klatkaAnimacji = 0;
+    private final int czasAnimacji=10;
     
     
      public PostacGracza(int szer, int wys)
@@ -63,11 +66,14 @@ public class PostacGracza extends Postac
      
         if(!kolizjaBlok(puntk_1, punkt_2) && !isCharacterJumping) //kolizja dol
         {
+            isCharacterFallngDown=true;
+
             y+=grawitacja;
             Plansza.scrollingY+=grawitacja;
         }
         else
         {
+            isCharacterFallngDown=false;
                if(Plansza.isJumping)
             {
                isCharacterJumping=true;
@@ -108,30 +114,41 @@ public class PostacGracza extends Postac
                 Point punkt_3 = new Point((int)x+2,(int)(y)); //lewo gora
                 Point punkt_4 = new Point((int)(this.x+this.szer-2),(int)(y)); //prawo gora
                 
+                
                 if(!kolizjaBlok(punkt_3, punkt_4))
                 {
-                    if(iloscSkokow>=wysokoscSkoku)
+                    if(iloscSkokow>=wysokoscSkoku) //koniec skoku
                     {
                         isCharacterJumping=false;
                         iloscSkokow=0;
                     }
-                    else
+                    else //skok
                     {
                         y-=predkoscWznoszenia;
                         Plansza.scrollingY-=predkoscWznoszenia;
                         iloscSkokow+=1;
+
                     }
                 }
-                else
+                else //brak skoku bo kolizja
                 {
                     isCharacterJumping=false;
                     iloscSkokow=0;
+
                 }
-            
-          
+  
         }
+        
        
-      
+      if(isCharacterFlinching==true) //postac po otrzymaniu obrazen
+        {
+		long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
+                
+		if(elapsed > 1000) 
+                {
+                    isCharacterFlinching = false;
+		}
+	}
         
         
         if(klatkaAnimacji>=czasAnimacji) //Animacje
@@ -164,9 +181,14 @@ public class PostacGracza extends Postac
     @Override
     public void render(Graphics graph_arg) 
     {
-        if(kierunekPostaci == predkoscPoruszania)//rendering poruszania w lewo
+        
+         
+        //=============================
+        //rendering poruszanie w lewo
+        //=============================
+        if(kierunekPostaci == predkoscPoruszania)
         {
-            if(isCharacterMoving==true) 
+            if(isCharacterMoving==true && isCharacterJumping==false && isCharacterFallngDown==false) //poruszanie
             {
                 graph_arg.drawImage(
                 Kafelek.kafelki_teren, 
@@ -180,7 +202,78 @@ public class PostacGracza extends Postac
                 Kafelek.postacGraczaRun[1]*Kafelek.kafelekSize+(int)wys,
                 null);
             }
-            else
+            else if(isCharacterJumping==true && isCharacterMoving==true && isCharacterFallngDown==false) //skakanie z ruchem
+            {
+                 graph_arg.drawImage(
+                Kafelek.kafelki_teren, 
+                (int)x - Plansza.scrollingX, 
+                (int)y - Plansza.scrollingY,
+                (int)(x+szer)- Plansza.scrollingX,
+                (int)(y+wys) - Plansza.scrollingY,
+                Kafelek.postacGraczaJump[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja),
+                Kafelek.postacGraczaJump[1]*Kafelek.kafelekSize,
+                Kafelek.postacGraczaJump[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja)+(int)szer,
+                Kafelek.postacGraczaJump[1]*Kafelek.kafelekSize+(int)wys,
+                null);
+            }
+            else if(isCharacterJumping==false && isCharacterMoving==true && isCharacterFallngDown==true) //opadanie z ruchem
+            {
+                 graph_arg.drawImage(
+                Kafelek.kafelki_teren, 
+                (int)x - Plansza.scrollingX, 
+                (int)y - Plansza.scrollingY,
+                (int)(x+szer)- Plansza.scrollingX,
+                (int)(y+wys) - Plansza.scrollingY,
+                Kafelek.postacGraczaFallingDown[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja),
+                Kafelek.postacGraczaFallingDown[1]*Kafelek.kafelekSize,
+                Kafelek.postacGraczaFallingDown[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja)+(int)szer,
+                Kafelek.postacGraczaFallingDown[1]*Kafelek.kafelekSize+(int)wys,
+                null);
+                 
+//                   graph_arg.drawImage(
+//                Kafelek.kafelki_teren, 
+//                (int)x - Plansza.scrollingX, 
+//                (int)y - Plansza.scrollingY,
+//                (int)(x+szer)- Plansza.scrollingX,
+//                (int)(y+wys) - Plansza.scrollingY,
+//                Kafelek.postacGraczaJump[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja),
+//                Kafelek.postacGraczaJump[1]*Kafelek.kafelekSize,
+//                Kafelek.postacGraczaJump[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja)+(int)szer,
+//                Kafelek.postacGraczaJump[1]*Kafelek.kafelekSize+(int)wys,
+//                null);
+                
+            }
+            else if(isCharacterJumping==false && isCharacterMoving==false && isCharacterFallngDown==true) //opadanie bez ruchu
+            {
+                graph_arg.drawImage(
+                Kafelek.kafelki_teren, 
+                (int)x - Plansza.scrollingX, 
+                (int)y - Plansza.scrollingY,
+                (int)(x+szer)- Plansza.scrollingX,
+                (int)(y+wys) - Plansza.scrollingY,
+                Kafelek.postacGraczaFallingDown[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja),
+                Kafelek.postacGraczaFallingDown[1]*Kafelek.kafelekSize,
+                Kafelek.postacGraczaFallingDown[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja)+(int)szer,
+                Kafelek.postacGraczaFallingDown[1]*Kafelek.kafelekSize+(int)wys,
+                null);
+                
+            }
+             else if(isCharacterJumping==true && isCharacterMoving==false && isCharacterFallngDown==false) //skakanie bez ruchu
+            {
+                graph_arg.drawImage(
+                Kafelek.kafelki_teren, 
+                (int)x - Plansza.scrollingX, 
+                (int)y - Plansza.scrollingY,
+                (int)(x+szer)- Plansza.scrollingX,
+                (int)(y+wys) - Plansza.scrollingY,
+                Kafelek.postacGraczaJump[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja),
+                Kafelek.postacGraczaJump[1]*Kafelek.kafelekSize,
+                Kafelek.postacGraczaJump[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja)+(int)szer,
+                Kafelek.postacGraczaJump[1]*Kafelek.kafelekSize+(int)wys,
+                null);
+                
+            }
+            else //stoi w lewo
             {
                 graph_arg.drawImage(
                 Kafelek.kafelki_teren, 
@@ -196,9 +289,14 @@ public class PostacGracza extends Postac
             }
              
         }
-        else //rendering poruszanie w prawo
+            
+        //=============================
+        //rendering poruszanie w prawo
+        //=============================
+        
+        else 
         {
-            if(isCharacterMoving==true) 
+            if(isCharacterMoving==true && isCharacterJumping==false && isCharacterFallngDown==false) //poruszanie
             {
                 graph_arg.drawImage(
                 Kafelek.kafelki_teren, 
@@ -212,7 +310,77 @@ public class PostacGracza extends Postac
                 Kafelek.postacGraczaRun[1]*Kafelek.kafelekSize+(int)wys,
                 null);
             }
-            else
+            else if(isCharacterJumping==true && isCharacterMoving==true && isCharacterFallngDown==false) //skakanie z ruchem
+            {
+                graph_arg.drawImage(
+                Kafelek.kafelki_teren, 
+                (int)x - Plansza.scrollingX, 
+                (int)y - Plansza.scrollingY,
+                (int)(x+szer)- Plansza.scrollingX,
+                (int)(y+wys) - Plansza.scrollingY,
+                Kafelek.postacGraczaJump[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja)+(int)szer,
+                Kafelek.postacGraczaJump[1]*Kafelek.kafelekSize,
+                Kafelek.postacGraczaJump[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja),
+                Kafelek.postacGraczaJump[1]*Kafelek.kafelekSize+(int)wys,
+                null);
+            }
+            else if(isCharacterJumping==false && isCharacterMoving==true && isCharacterFallngDown==true) //opadanie z ruchem
+            {
+               graph_arg.drawImage(
+                Kafelek.kafelki_teren, 
+                (int)x - Plansza.scrollingX, 
+                (int)y - Plansza.scrollingY,
+                (int)(x+szer)- Plansza.scrollingX,
+                (int)(y+wys) - Plansza.scrollingY,
+                Kafelek.postacGraczaFallingDown[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja)+(int)szer,
+                Kafelek.postacGraczaFallingDown[1]*Kafelek.kafelekSize,
+                Kafelek.postacGraczaFallingDown[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja),
+                Kafelek.postacGraczaFallingDown[1]*Kafelek.kafelekSize+(int)wys,
+                null);
+                
+//                graph_arg.drawImage(
+//                Kafelek.kafelki_teren, 
+//                (int)x - Plansza.scrollingX, 
+//                (int)y - Plansza.scrollingY,
+//                (int)(x+szer)- Plansza.scrollingX,
+//                (int)(y+wys) - Plansza.scrollingY,
+//                Kafelek.postacGraczaJump[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja)+(int)szer,
+//                Kafelek.postacGraczaJump[1]*Kafelek.kafelekSize,
+//                Kafelek.postacGraczaJump[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja),
+//                Kafelek.postacGraczaJump[1]*Kafelek.kafelekSize+(int)wys,
+//                null);
+            }
+            else if(isCharacterJumping==false && isCharacterMoving==false && isCharacterFallngDown==true) //opadanie bez ruchu
+            {
+                graph_arg.drawImage(
+                Kafelek.kafelki_teren, 
+                (int)x - Plansza.scrollingX, 
+                (int)y - Plansza.scrollingY,
+                (int)(x+szer)- Plansza.scrollingX,
+                (int)(y+wys) - Plansza.scrollingY,
+                Kafelek.postacGraczaFallingDown[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja)+(int)szer,
+                Kafelek.postacGraczaFallingDown[1]*Kafelek.kafelekSize,
+                Kafelek.postacGraczaFallingDown[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja),
+                Kafelek.postacGraczaFallingDown[1]*Kafelek.kafelekSize+(int)wys,
+                null);
+                
+            }
+            else if(isCharacterJumping==true && isCharacterMoving==false && isCharacterFallngDown==false) //skakanie bez ruchu
+            {
+                 graph_arg.drawImage(
+                Kafelek.kafelki_teren, 
+                (int)x - Plansza.scrollingX, 
+                (int)y - Plansza.scrollingY,
+                (int)(x+szer)- Plansza.scrollingX,
+                (int)(y+wys) - Plansza.scrollingY,
+                Kafelek.postacGraczaJump[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja)+(int)szer,
+                Kafelek.postacGraczaJump[1]*Kafelek.kafelekSize,
+                Kafelek.postacGraczaJump[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja),
+                Kafelek.postacGraczaJump[1]*Kafelek.kafelekSize+(int)wys,
+                null);
+                
+            }
+            else //stoi w prawo
             {
                 graph_arg.drawImage(
                 Kafelek.kafelki_teren, 
@@ -226,7 +394,27 @@ public class PostacGracza extends Postac
                 Kafelek.postacGraczaIdle[1]*Kafelek.kafelekSize+(int)wys,
                 null);
             }
+            
+            
         }
+        
+        
+        
+         if(isCharacterFlinching==true)
+        {
+            graph_arg.drawImage(
+                Kafelek.kafelki_teren, 
+                (int)x - Plansza.scrollingX, 
+                (int)y - Plansza.scrollingY,
+                (int)(x+szer)- Plansza.scrollingX,
+                (int)(y+wys) - Plansza.scrollingY,
+                Kafelek.pustyTile[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja),
+                Kafelek.pustyTile[1]*Kafelek.kafelekSize,
+                Kafelek.pustyTile[0]*Kafelek.kafelekSize+(Kafelek.kafelekSize*animacja)+(int)szer,
+                Kafelek.pustyTile[1]*Kafelek.kafelekSize+(int)wys,
+                null);
+        }
+        
         
         
    

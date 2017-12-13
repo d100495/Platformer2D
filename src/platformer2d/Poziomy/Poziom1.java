@@ -42,50 +42,48 @@ public final class Poziom1 extends Poziom
         {
             for(int y=0; y<bloki[x].length;y++)
             {
-               if(x==0 || y ==0 || x==bloki.length-1 || y==bloki[x].length-1)
-               {
-                   bloki[x][y].blokID=Kafelek.ziemia;
-               }
+               
                
                if(y==bloki[x].length-2)
                {
                    bloki[x][y].blokID=Kafelek.trawa;
                }
                
+               
+               
                if((x==0 || x==bloki.length-1) && y==bloki[x].length-2)
                {
                    bloki[x][y].blokID=Kafelek.ziemia;
                }
                
-               for(int xx=0;xx<12;xx++) //schodki
+               for(int xx=0;xx<6;xx++) //schodki
                {
                     if(y==(bloki[x].length-3)-xx+1 && x>20+xx && x<30)
                     {
                     bloki[x][y].blokID=Kafelek.ziemia;
                     } 
                }
+
+                 if(((x>42 && x<=44) && y==bloki[x].length-5)) //pierwsza kładka
+               {
+                   bloki[x][y].blokID=Kafelek.ziemia;
+               }
                
+                 
+               if(x==0 || y ==0 || x==bloki.length-1 || y==bloki[x].length-1) //OBRAMOWANIE =====================
+               {
+                   bloki[x][y].blokID=Kafelek.ziemia;
+               }
                
                if(((x>40 && x<=50) && (y==bloki[x].length-2 || y==bloki[x].length-1))) //pierwsza przepasc
                {
                    bloki[x][y].blokID=Kafelek.powietrze;
                }
                
-               
-                 if(((x>42 && x<=44) && y==bloki[x].length-5)) //pierwsza kładka
-               {
-                   bloki[x][y].blokID=Kafelek.ziemia;
-               }
-               
-               
-                 if(((x>70 && x<75) && (y==bloki[x].length-2 || y==bloki[x].length-1))) //druga przepasc
+                  if(((x>70 && x<75) && (y==bloki[x].length-2 || y==bloki[x].length-1))) //druga przepasc
                {
                    bloki[x][y].blokID=Kafelek.powietrze;
                }
-               
-               
-                 
-                  
             }
         }
     }
@@ -99,6 +97,7 @@ public final class Poziom1 extends Poziom
     
     
     Image chmura = new ImageIcon(System.getProperty("user.dir") + "\\src\\resources\\chmura1.png").getImage();
+     Image drzewo = new ImageIcon(System.getProperty("user.dir") + "\\src\\resources\\tree.png").getImage();
     
     @Override
     public void render(Graphics grap_arg)
@@ -119,7 +118,9 @@ public final class Poziom1 extends Poziom
        
        //Rysowanie dodatkow
         grap_arg.drawImage(chmura, 250-scrollingX, 340-Plansza.scrollingY, null);  
+        grap_arg.drawImage(drzewo, 350-scrollingX, 328-Plansza.scrollingY, null);  
         grap_arg.drawImage(chmura, 550-scrollingX, 240-Plansza.scrollingY, null);  
+        grap_arg.drawImage(drzewo, 1000-scrollingX, 328-Plansza.scrollingY, null);  
         grap_arg.drawImage(chmura, 950-scrollingX, 150-Plansza.scrollingY, null);  
         grap_arg.drawImage(chmura, 1150-scrollingX, 200-Plansza.scrollingY, null);  
         grap_arg.drawImage(chmura, 1600-scrollingX, 400-Plansza.scrollingY, null);  

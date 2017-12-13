@@ -13,10 +13,14 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.imageio.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import platformer2d.Postacie.MalyCzerwonySlime;
+import platformer2d.Postacie.MalyZielonySlime;
+import platformer2d.Postacie.Postac;
 
 
 
@@ -48,7 +52,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
      
     //Logika, poruszanie...
     public static int scrollingX=0, scrollingY=0;
-    public static boolean gameIsRunning = false;
+    private static boolean gameIsRunning = false;
     public static boolean isJumping=false;
 
     
@@ -56,10 +60,17 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     public static Poziom level;
     public static int nrPoziomu=1;
     public static PostacGracza postac;
-    
+    private static ArrayList<Postac> mobArrayList;
 
     
+    //Menu
+    public static enum STATE
+    {
+        MENU,GAME
+    };
+    public static STATE GameState=STATE.MENU;
     
+    public static Menu menu = new Menu();
     
     @Override
     public void start() 
@@ -76,6 +87,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         new Thread(this).start(); //nowy watek dla Komponentu
     }
 
+    
     
     @Override
     public void stop() 
@@ -97,12 +109,57 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             case 1:
             {
                 level=new Poziom1(150, 20); // 2 wartosc nieparzysta (tymczasowo)
+                
+                mobArrayList=new ArrayList<>();
+                
+                for(int i=0; i<20;i++)//Zielone SLIMY
+                {
+                    mobArrayList.add(new MalyZielonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
+                            ,100
+                            ,Kafelek.kafelekSize/2
+                            ,Kafelek.kafelekSize/2
+                            ,new Random().nextDouble()*(0.1 + (1.5 - 0.1)) 
+                    ));
+                }
+                
+                 for(int i=0; i<40;i++)//Czerwone SLIMY
+                {
+                    mobArrayList.add(new MalyCzerwonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
+                            ,100
+                            ,Kafelek.kafelekSize/2
+                            ,Kafelek.kafelekSize/2));
+                }
+
+                
+                
+                
                 break;
             }
             
             case 2:
             {
-                level=new Poziom2(20, 20); 
+                level=new Poziom2(40, 20); 
+                
+                mobArrayList=new ArrayList<>();
+                
+                 for(int i=0; i<50;i++) //Czerwone SLIMY
+                {
+                    mobArrayList.add(new MalyCzerwonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
+                            ,100
+                            ,Kafelek.kafelekSize/2
+                            ,Kafelek.kafelekSize/2));
+                }
+                
+                   for(int i=0; i<3;i++) //Zielone SLIMY
+                {
+                    mobArrayList.add(new MalyZielonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
+                            ,100
+                            ,Kafelek.kafelekSize/2
+                            ,Kafelek.kafelekSize/2
+                            ,new Random().nextDouble()*(0.1 + (1.5 - 0.1)) 
+                    ));
+                }
+                 
                 break;
             }
             
@@ -119,31 +176,56 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     
     public void tick() //wszystkie metody tick z obiektow
     {
+        if(GameState==STATE.GAME)
+        {
         level.tick();
         postac.tick();
+        
+        
+            for(int i =0;i<mobArrayList.size();i++)
+            {
+                mobArrayList.get(i).tick();
+                if(mobArrayList.get(i).czyUmar==true)
+                {
+                    System.out.println("mob " + i +" z klasy " + mobArrayList.get(i).getClass() + " umar ");
+                    System.out.println("Pozostało: " + mobArrayList.size()+ " mobow");
+                    mobArrayList.remove(i);
+                }
+            }
+
+            
+            
+        }
+        
+        
     }
 
         //Zmienne do renderowania
-            //public static BufferedImage tloPlanszy=null;
-           // public static BufferedImage chmura=null;
-
-        //    Random randomNumber = new Random();
-        //    int chmuraY1 = randomNumber.nextInt(200)+150;
-        //    int chmuraY2= randomNumber.nextInt(200)+150;
-        //    int chmuraY3 = randomNumber.nextInt(200)+150;
-        //    int chmuraY4 = randomNumber.nextInt(200)+150;
-    
         Font myFont = new Font ("Courier New", 1, 9);
         Graphics graph1;
+        
+        
     public void render() 
     {
         //Obiekty graficzne planszy
-                 graph1 = obrazekEkranu.getGraphics(); // plansza nr1
+        graph1 = obrazekEkranu.getGraphics(); // plansza nr1
             
-        //Rendering (wszystkie metody render)
-                level.render(graph1);
-                postac.render(graph1);
-
+        if(GameState==STATE.GAME)
+        {
+            //Rendering (wszystkie metody render)
+           level.render(graph1);
+           postac.render(graph1);
+           
+            for(Postac x : mobArrayList)
+            {
+                x.render(graph1);
+            }
+        }
+        else if(GameState==STATE.MENU)
+        {
+            menu.render(graph1);
+        }
+      
                 
         //Fps counter        
         graph1.setColor(Color.yellow);
@@ -184,7 +266,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             
             try  //predkosc gry
             {
-                Thread.sleep(6); // niestety nie moge lockowac fpsow, bo gra dziala za wolno, a jak przestawie predkosc poruszania lub grawitacje, to psuja sie kolizje
+                Thread.sleep(7); //nie moge lockowac fpsow, bo gra dziala za wolno, a jak przestawie predkosc poruszania lub grawitacje, to psuja sie kolizje
             } 
             catch (InterruptedException ex) {
                ex.printStackTrace();
