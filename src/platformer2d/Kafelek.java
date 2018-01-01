@@ -27,6 +27,8 @@ public class Kafelek //moze sie skladac z wiekszej ilosci blokow
      public static int [] smallRedSlimeRolling = {0,11};
      public static int [] smallRedSlimeDying = {10,11};
     
+    public static int [] bluePortal = {0,10};
+     
     public static BufferedImage kafelki_teren;
     public static int kafelekSize = 32;
     

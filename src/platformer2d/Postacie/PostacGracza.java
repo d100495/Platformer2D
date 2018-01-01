@@ -21,6 +21,8 @@ public class PostacGracza extends Postac
     public static boolean isCharacterFallngDown=false;
     public static boolean isCharacterFlinching=false;
     public static long flinchTimer=0;
+    public static boolean isAbleToGetHealth=true;
+    public static long healingTimer=0;
     
     private final double grawitacja = 2;
     public final double predkoscPoruszania=2;
@@ -29,6 +31,8 @@ public class PostacGracza extends Postac
     private final double wysokoscSkoku=54;
     private int iloscSkokow=0;
     
+    //HealthBar
+    public static int healthValue=100;
     
     private int animacja=0;
     private int klatkaAnimacji = 0;
@@ -139,16 +143,34 @@ public class PostacGracza extends Postac
   
         }
         
-       
       if(isCharacterFlinching==true) //postac po otrzymaniu obrazen
         {
 		long elapsed = (System.nanoTime() - flinchTimer) / 1000000;
-                
+
 		if(elapsed > 1000) 
                 {
                     isCharacterFlinching = false;
 		}
 	}
+      
+       if(isAbleToGetHealth==false)
+        {
+		long elapsed = (System.nanoTime() - healingTimer) / 1000000;
+
+		if(elapsed > 100) 
+                {
+                    isAbleToGetHealth = true;
+		}
+	}
+      
+       
+       if(healthValue<0)
+       {
+            Plansza.reload();
+             healthValue=100;
+       }
+     
+      
         
         
         if(klatkaAnimacji>=czasAnimacji) //Animacje
@@ -173,6 +195,7 @@ public class PostacGracza extends Postac
         if(y>=Plansza.level.bloki[0].length*Kafelek.kafelekSize) //spadanie
         {
             Plansza.reload();
+            healthValue=100;
         }
     }
 

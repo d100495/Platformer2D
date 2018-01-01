@@ -132,14 +132,12 @@ public class MalyZielonySlime extends Postac
             
             if(PostacGracza.isCharacterFlinching==false)
             {
+                PostacGracza.healthValue-=40;
                 PostacGracza.isCharacterFlinching = true;
                 PostacGracza.flinchTimer = System.nanoTime();
                 System.out.println("FLINCHING");
             }
-            else
-            {
-                
-            }
+          
             //Plansza.reload();
         }
         
@@ -215,31 +213,4 @@ public class MalyZielonySlime extends Postac
     }
     
     
-    public boolean kolizjaGracz(Postac postac1 , Postac malySlime)
-    {
-      
-       if (postac1.x > malySlime.x + malySlime.szer ||
-           postac1.x + postac1.szer < malySlime.x ||
-          postac1.y > malySlime.y + malySlime.wys || 
-            postac1.y + postac1.wys < malySlime.y)
-       {
-           return false;
-       }
-        
- 
-    else
-        return true;
-    
-    
-    }
- 
- 
-    
-    
-    
-    
-    
-    
 }
-
-

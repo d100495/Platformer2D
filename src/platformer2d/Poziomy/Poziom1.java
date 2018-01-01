@@ -84,6 +84,8 @@ public final class Poziom1 extends Poziom
                {
                    bloki[x][y].blokID=Kafelek.powietrze;
                }
+                  
+                  
             }
         }
     }

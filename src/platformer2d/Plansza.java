@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ import java.util.Random;
 import javax.imageio.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.Timer;
+import platformer2d.Postacie.BluePortal;
 import platformer2d.Postacie.MalyCzerwonySlime;
 import platformer2d.Postacie.MalyZielonySlime;
 import platformer2d.Postacie.Postac;
@@ -35,6 +39,10 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     
     private final int FPS =40;
     private double averageFPS;
+    
+    private int timerDelay;
+    private Timer myTimer;
+    public static int timerCounter=0;
     
     static final int rozmiarPiksela = 2; //czyli jakby przyblizenie ekranu
     public static final Dimension piksele = new Dimension(
@@ -60,7 +68,9 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     public static Poziom level;
     public static int nrPoziomu=1;
     public static PostacGracza postac;
+    public static BluePortal portal;
     private static ArrayList<Postac> mobArrayList;
+    
 
     
     //Menu
@@ -85,8 +95,20 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         //Pętla gry
         gameIsRunning = true; //rozpoczęcie gry
         new Thread(this).start(); //nowy watek dla Komponentu
+        timerDelay = 1000;
+        myTimer = new Timer(timerDelay,gameTimer);
+        myTimer.start();
+        
     }
 
+    ActionListener gameTimer = new ActionListener()
+    {
+        @Override
+        public void actionPerformed(ActionEvent ae) 
+        {
+            timerCounter++;
+        }
+    };
     
     
     @Override
@@ -98,7 +120,8 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     
     public static void reload()
     {
-        
+        timerCounter=0;
+        portal=new BluePortal(30, 450, Kafelek.kafelekSize, Kafelek.kafelekSize);
         postac = new PostacGracza(100,520,Kafelek.kafelekSize, Kafelek.kafelekSize);
          
         scrollingX=(int)postac.x;
@@ -165,11 +188,36 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             
             default:
             {
-                level=new Poziom1(150, 10); 
+               level=new Poziom1(150, 20); // 2 wartosc nieparzysta (tymczasowo)
+                
+                mobArrayList=new ArrayList<>();
+                
+                for(int i=0; i<20;i++)//Zielone SLIMY
+                {
+                    mobArrayList.add(new MalyZielonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
+                            ,100
+                            ,Kafelek.kafelekSize/2
+                            ,Kafelek.kafelekSize/2
+                            ,new Random().nextDouble()*(0.1 + (1.5 - 0.1)) 
+                    ));
+                }
+                
+                 for(int i=0; i<40;i++)//Czerwone SLIMY
+                {
+                    mobArrayList.add(new MalyCzerwonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
+                            ,100
+                            ,Kafelek.kafelekSize/2
+                            ,Kafelek.kafelekSize/2));
+                }
+
+                
+                
+                
                 break;
             }
         }
        
+        
     }
     
     
@@ -180,6 +228,8 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         {
         level.tick();
         postac.tick();
+        portal.tick();
+        myTimer.start();
         
         
             for(int i =0;i<mobArrayList.size();i++)
@@ -196,15 +246,21 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             
             
         }
+        else
+        {
+          myTimer.stop();
+        }
         
         
     }
 
         //Zmienne do renderowania
-        Font myFont = new Font ("Courier New", 1, 9);
+        Font myFont = new Font ("Arial", 1, 9);
+        Font myFont2 = new Font ("Tahoma", 1, 9);
         Graphics graph1;
         
-        
+        Image healthBarImage = new ImageIcon(System.getProperty("user.dir") + "\\src\\resources\\HealthBar-Bar.png").getImage();
+        Image healthCrossImage = new ImageIcon(System.getProperty("user.dir") + "\\src\\resources\\HealthBar-Cross.png").getImage();
     public void render() 
     {
         //Obiekty graficzne planszy
@@ -215,11 +271,31 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             //Rendering (wszystkie metody render)
            level.render(graph1);
            postac.render(graph1);
+           portal.render(graph1);
+          
+           //Timer
+           graph1.setColor(Color.black);
+           graph1.fillRect(piksele.width-120, 25, 65, 15);
+           graph1.setColor(Color.white);
+           graph1.setFont(myFont2);
+           graph1.drawString("Czas: "+timerCounter+"s", piksele.width-115, 35);
+           
+           
+           //HealthBar
+           graph1.drawImage(healthBarImage, piksele.width-120, 6, 110, 20, null);
+           graph1.setColor(Color.RED);
+           graph1.fillRect(piksele.width-115, 9, PostacGracza.healthValue, 14);
+           graph1.drawImage(healthCrossImage, piksele.width-155, 6, 30, 20, null);
+           graph1.setColor(Color.white);
+           graph1.drawString(PostacGracza.healthValue+"%", piksele.width-80, 20);
+           
            
             for(Postac x : mobArrayList)
             {
                 x.render(graph1);
             }
+            
+            
         }
         else if(GameState==STATE.MENU)
         {
@@ -230,9 +306,12 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         //Fps counter        
         graph1.setColor(Color.yellow);
         graph1.setFont(myFont);
-        graph1.drawString("FPS "+(int)averageFPS, 1, 6);
+        graph1.drawString("FPS "+(int)averageFPS, 1, 9);
+        
+        
         graph1 = getGraphics(); 
        
+        
         
 
         graph1.drawImage(obrazekEkranu, 0, 0, rozmiarOkna.width, rozmiarOkna.height, 0, 0, piksele.width, piksele.height, null);
@@ -244,6 +323,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     @Override
     public void run() 
     {
+        
         System.out.println("wchodze do kafelek/run");
         obrazekEkranu = createVolatileImage(piksele.width, piksele.height); // podwójne bufforowanie, żeby obraz nie skakał
         
