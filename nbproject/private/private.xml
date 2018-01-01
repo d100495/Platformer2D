@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/platformer2d/Menu.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>72</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Postacie/BluePortal.java</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Blok.java</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/resources/background_day.jpg</file>
-            <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Postacie/ZielonySlime.java</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Kafelek.java</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Poziomy/Poziom1.java</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Poziomy/Poziom2.java</file>
+            <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Postacie/MalyZielonySlime.java</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Postacie/Postac.java</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/resources/KafelkiPNG.png</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Plansza.java</file>
+            <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Postacie/MalyCzerwonySlime.java</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Sterowanie.java</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/resources/6629.png</file>
+            <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Postacie/UsuwaczPostaci.java</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Postacie/Przeciwnik1.java</file>
+            <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Menu.java</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/resources/0f18a09f7rRIT.gif</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/resources/32x32_map_tile%20v1.1_0.png</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Poziomy/Poziom.java</file>
+            <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Poziomy/ScoreRoom.java</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/.git/config</file>
             <file>file:/D:/Program%20Files/Dropbox/Semestr%20V/Java/Platformer2D/src/platformer2d/Postacie/PostacGracza.java</file>
         </group>

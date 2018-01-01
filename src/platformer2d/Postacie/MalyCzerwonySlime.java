@@ -20,16 +20,18 @@ public class MalyCzerwonySlime extends Postac
 {
 
     
-    public double kierunekPostaci=1;
-    public final double grawitacja = 2;
-    public final double predkoscPoruszania=0.3;
+    private double kierunekPostaci=1;
+    private final double grawitacja = 2;
+    private final double predkoscPoruszania=0.3;
     
    
-    public int animacja=0;
-    public int klatkaAnimacji = 0;
-    public final int czasAnimacji=10;
+    private int animacja=0;
+    private int klatkaAnimacji = 0;
+    private final int czasAnimacji=10;
     
-    public boolean czyNazdepniety = false;
+    private int health=20;
+    
+    private boolean czyNazdepniety = false;
 
    
     
@@ -117,6 +119,15 @@ public class MalyCzerwonySlime extends Postac
         
         if(kolizjaGracz(Plansza.postac, this)) //logika kolizji z graczem
         {
+              if(PostacGracza.isAbleToGetHealth==true && PostacGracza.healthValue<100)
+            {
+                health--;
+                PostacGracza.healthValue+=1;
+                PostacGracza.isAbleToGetHealth = false;
+                PostacGracza.healingTimer = System.nanoTime();
+                System.out.println("Healing");
+            }
+           
             czyNazdepniety=true;
         }
         else
@@ -126,7 +137,10 @@ public class MalyCzerwonySlime extends Postac
         }
         
         
-           
+        if(health<0)
+        {
+            this.czyUmar=true;
+        }
             
            
     }
@@ -138,7 +152,7 @@ public class MalyCzerwonySlime extends Postac
          //=============================
         //rendering poruszanie w lewo
         //=============================
-                if(kierunekPostaci == predkoscPoruszania)
+                if(kierunekPostaci == 1)
                 {
                      
                      if(czyNazdepniety==true)
@@ -175,6 +189,7 @@ public class MalyCzerwonySlime extends Postac
                             
                             
                 }
+                else{
                     //=============================
                     //rendering poruszanie w prawo
                     //=============================
@@ -210,6 +225,7 @@ public class MalyCzerwonySlime extends Postac
                     }
     
                 }
+    }
     
     
     
@@ -234,28 +250,6 @@ public class MalyCzerwonySlime extends Postac
         }
         return false;
     }
-    
-    
-    public boolean kolizjaGracz(Postac postac1 , Postac malySlime)
-    {
-      
-       if (postac1.x > malySlime.x + malySlime.szer ||
-           postac1.x + postac1.szer < malySlime.x ||
-          postac1.y > malySlime.y + malySlime.wys || 
-            postac1.y + postac1.wys < malySlime.y)
-       {
-           return false;
-       }
-        
- 
-    else
-        return true;
-    
-    
-    }
- 
- 
-    
     
     
     

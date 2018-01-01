@@ -20,13 +20,15 @@ public class Kafelek //moze sie skladac z wiekszej ilosci blokow
     public static int [] postacGraczaRun = {0,18};
     public static int [] postacGraczaJump = {0,17};
     public static int [] postacGraczaFallingDown = {0,16};
-    
+    public static int [] pustyTile = {8,19};
     
     //moby
      public static int [] smallGreenSlimeJumping = {0,12};
      public static int [] smallRedSlimeRolling = {0,11};
      public static int [] smallRedSlimeDying = {10,11};
     
+    public static int [] bluePortal = {0,10};
+     
     public static BufferedImage kafelki_teren;
     public static int kafelekSize = 32;
     

@@ -43,6 +43,10 @@ public class Sterowanie implements KeyListener
                  case KeyEvent.VK_SPACE:
                     Plansza.isJumping=true;
                 break;
+                
+                 case KeyEvent.VK_ESCAPE:
+                    Plansza.GameState=Plansza.STATE.MENU;
+                break;
 
 
             }

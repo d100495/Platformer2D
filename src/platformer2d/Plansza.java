@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -18,9 +20,12 @@ import java.util.Random;
 import javax.imageio.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.Timer;
+import platformer2d.Postacie.BluePortal;
 import platformer2d.Postacie.MalyCzerwonySlime;
 import platformer2d.Postacie.MalyZielonySlime;
 import platformer2d.Postacie.Postac;
+import platformer2d.Poziomy.ScoreRoom;
 
 
 
@@ -35,6 +40,10 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     
     private final int FPS =40;
     private double averageFPS;
+    
+    private int timerDelay;
+    private Timer myTimer;
+    public static int timerValue=0;
     
     static final int rozmiarPiksela = 2; //czyli jakby przyblizenie ekranu
     public static final Dimension piksele = new Dimension(
@@ -52,7 +61,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
      
     //Logika, poruszanie...
     public static int scrollingX=0, scrollingY=0;
-    public static boolean gameIsRunning = false;
+    private static boolean gameIsRunning = false;
     public static boolean isJumping=false;
 
     
@@ -60,7 +69,9 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     public static Poziom level;
     public static int nrPoziomu=1;
     public static PostacGracza postac;
-    public static ArrayList<Postac> mobArrayList;
+    public static BluePortal portal;
+    private static ArrayList<Postac> mobArrayList;
+    
 
     
     //Menu
@@ -68,7 +79,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     {
         MENU,GAME
     };
-    public static STATE GameState=STATE.GAME;
+    public static STATE GameState=STATE.MENU;
     
     public static Menu menu = new Menu();
     
@@ -85,8 +96,20 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         //Pętla gry
         gameIsRunning = true; //rozpoczęcie gry
         new Thread(this).start(); //nowy watek dla Komponentu
+        timerDelay = 1000;
+        myTimer = new Timer(timerDelay,gameTimer);
+        myTimer.start();
+        
     }
 
+    ActionListener gameTimer = new ActionListener()
+    {
+        @Override
+        public void actionPerformed(ActionEvent ae) 
+        {
+            timerValue++;
+        }
+    };
     
     
     @Override
@@ -98,9 +121,10 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     
     public static void reload()
     {
-        
+        timerValue=0;
         postac = new PostacGracza(100,520,Kafelek.kafelekSize, Kafelek.kafelekSize);
-         
+        PostacGracza.healthValue=100; 
+        
         scrollingX=(int)postac.x;
         scrollingY=(int)postac.y-200;
         
@@ -108,20 +132,27 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         {
             case 1:
             {
-                level=new Poziom1(250, 20); // 2 wartosc nieparzysta (tymczasowo)
-                
-                
-                
+                level=new Poziom1(150, 20); // 2 wartosc nieparzysta (tymczasowo)
+               portal=new BluePortal(
+                       (150*Kafelek.kafelekSize)-(2*Kafelek.kafelekSize), //kafelek x portalu
+                       (20*Kafelek.kafelekSize)-(3*Kafelek.kafelekSize), //kafelek y portalu
+                        Kafelek.kafelekSize,
+                        Kafelek.kafelekSize);
+
+                        
                 mobArrayList=new ArrayList<>();
-                for(int i=0; i<20;i++)
+                
+                for(int i=0; i<20;i++)//Zielone SLIMY
                 {
                     mobArrayList.add(new MalyZielonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
                             ,100
                             ,Kafelek.kafelekSize/2
-                            ,Kafelek.kafelekSize/2));
+                            ,Kafelek.kafelekSize/2
+                            ,new Random().nextDouble()*(0.1 + (1.5 - 0.1)) 
+                    ));
                 }
                 
-                 for(int i=0; i<50;i++)
+                 for(int i=0; i<40;i++)//Czerwone SLIMY
                 {
                     mobArrayList.add(new MalyCzerwonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
                             ,100
@@ -137,27 +168,51 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             
             case 2:
             {
-                level=new Poziom2(20, 20); 
+                level=new Poziom2(40, 20); 
+                portal=new BluePortal(
+                       (40*Kafelek.kafelekSize)-(2*Kafelek.kafelekSize), //kafelek x portalu
+                       (20*Kafelek.kafelekSize)-(3*Kafelek.kafelekSize), //kafelek y portalu
+                        Kafelek.kafelekSize,
+                        Kafelek.kafelekSize);
                 
                 mobArrayList=new ArrayList<>();
-                for(int i=0; i<50;i++)
+                
+                 for(int i=0; i<50;i++) //Czerwone SLIMY
                 {
-                    mobArrayList.add(new MalyZielonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
+                    mobArrayList.add(new MalyCzerwonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
                             ,100
                             ,Kafelek.kafelekSize/2
                             ,Kafelek.kafelekSize/2));
                 }
                 
+                   for(int i=0; i<3;i++) //Zielone SLIMY
+                {
+                    mobArrayList.add(new MalyZielonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
+                            ,100
+                            ,Kafelek.kafelekSize/2
+                            ,Kafelek.kafelekSize/2
+                            ,new Random().nextDouble()*(0.1 + (1.5 - 0.1)) 
+                    ));
+                }
+                 
                 break;
             }
             
             default:
             {
-                level=new Poziom1(150, 10); 
-                break;
+               level=new ScoreRoom(20, 20); // 2 wartosc nieparzysta (tymczasowo)
+               portal=new BluePortal(
+                       (20*Kafelek.kafelekSize)-(2*Kafelek.kafelekSize), //kafelek x portalu
+                       (20*Kafelek.kafelekSize)-(3*Kafelek.kafelekSize), //kafelek y portalu
+                       Kafelek.kafelekSize,
+                       Kafelek.kafelekSize);
+               mobArrayList=new ArrayList<>();
+       
+               break;
             }
         }
        
+        
     }
     
     
@@ -168,6 +223,8 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         {
         level.tick();
         postac.tick();
+        portal.tick();
+        myTimer.start();
         
         
             for(int i =0;i<mobArrayList.size();i++)
@@ -184,15 +241,21 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             
             
         }
+        else
+        {
+          myTimer.stop();
+        }
         
         
     }
 
         //Zmienne do renderowania
-        Font myFont = new Font ("Courier New", 1, 9);
+        Font myFont = new Font ("Arial", 1, 9);
+        Font myFont2 = new Font ("Tahoma", 1, 9);
         Graphics graph1;
         
-        
+        Image healthBarImage = new ImageIcon(System.getProperty("user.dir") + "\\src\\resources\\HealthBar-Bar.png").getImage();
+        Image healthCrossImage = new ImageIcon(System.getProperty("user.dir") + "\\src\\resources\\HealthBar-Cross.png").getImage();
     public void render() 
     {
         //Obiekty graficzne planszy
@@ -203,11 +266,31 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             //Rendering (wszystkie metody render)
            level.render(graph1);
            postac.render(graph1);
+           portal.render(graph1);
+          
+           //Timer
+           graph1.setColor(Color.black);
+           graph1.fillRect(piksele.width-120, 25, 65, 15);
+           graph1.setColor(Color.white);
+           graph1.setFont(myFont2);
+           graph1.drawString("Czas: "+timerValue+"s", piksele.width-115, 35);
+           
+           
+           //HealthBar
+           graph1.drawImage(healthBarImage, piksele.width-120, 6, 110, 20, null);
+           graph1.setColor(Color.RED);
+           graph1.fillRect(piksele.width-115, 9, PostacGracza.healthValue, 14);
+           graph1.drawImage(healthCrossImage, piksele.width-155, 6, 30, 20, null);
+           graph1.setColor(Color.white);
+           graph1.drawString(PostacGracza.healthValue+"%", piksele.width-80, 20);
+           
            
             for(Postac x : mobArrayList)
             {
                 x.render(graph1);
             }
+            
+            
         }
         else if(GameState==STATE.MENU)
         {
@@ -218,9 +301,12 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         //Fps counter        
         graph1.setColor(Color.yellow);
         graph1.setFont(myFont);
-        graph1.drawString("FPS "+(int)averageFPS, 1, 6);
+        graph1.drawString("FPS "+(int)averageFPS, 1, 9);
+        
+        
         graph1 = getGraphics(); 
        
+        
         
 
         graph1.drawImage(obrazekEkranu, 0, 0, rozmiarOkna.width, rozmiarOkna.height, 0, 0, piksele.width, piksele.height, null);
@@ -232,6 +318,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     @Override
     public void run() 
     {
+        
         System.out.println("wchodze do kafelek/run");
         obrazekEkranu = createVolatileImage(piksele.width, piksele.height); // podwójne bufforowanie, żeby obraz nie skakał
         

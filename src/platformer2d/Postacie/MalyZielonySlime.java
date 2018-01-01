@@ -20,22 +20,23 @@ public class MalyZielonySlime extends Postac
 {
 
     
-    public double kierunekPostaci=1;
-    public final double grawitacja = 2;
-    public final double predkoscPoruszania=0.3;
+    private double kierunekPostaci=1;
+    private final double grawitacja = 2;
+    private double predkoscPoruszania=0.3;
     
    
-    public int animacja=0;
-    public int klatkaAnimacji = 0;
-    public final int czasAnimacji=10;
+    private int animacja=0;
+    private int klatkaAnimacji = 0;
+    private final int czasAnimacji=10;
     
     
-    public MalyZielonySlime(int x, int y, int szer, int wys)
+    public MalyZielonySlime(int x, int y, int szer, int wys,double predkoscporuszania)
     {
         this.x=x;
         this.y=y;
         this.szer=szer;
         this.wys=wys;
+        this.predkoscPoruszania=predkoscporuszania;
     }
     
     @Override
@@ -128,8 +129,19 @@ public class MalyZielonySlime extends Postac
         
         if(kolizjaGracz(Plansza.postac, this)) //logika kolizji z graczem
         {
-            Plansza.reload();
+            
+            if(PostacGracza.isCharacterFlinching==false)
+            {
+                PostacGracza.healthValue-=40;
+                PostacGracza.isCharacterFlinching = true;
+                PostacGracza.flinchTimer = System.nanoTime();
+                System.out.println("FLINCHING");
+            }
+          
+            //Plansza.reload();
         }
+        
+        
     }
     
 
@@ -139,7 +151,7 @@ public class MalyZielonySlime extends Postac
          //=============================
         //rendering poruszanie w lewo
         //=============================
-                if(kierunekPostaci == predkoscPoruszania)
+                if(kierunekPostaci == 1)
                 {
                      
                             graph_arg.drawImage(
@@ -201,31 +213,4 @@ public class MalyZielonySlime extends Postac
     }
     
     
-    public boolean kolizjaGracz(Postac postac1 , Postac malySlime)
-    {
-      
-       if (postac1.x > malySlime.x + malySlime.szer ||
-           postac1.x + postac1.szer < malySlime.x ||
-          postac1.y > malySlime.y + malySlime.wys || 
-            postac1.y + postac1.wys < malySlime.y)
-       {
-           return false;
-       }
-        
- 
-    else
-        return true;
-    
-    
-    }
- 
- 
-    
-    
-    
-    
-    
-    
 }
-
-
