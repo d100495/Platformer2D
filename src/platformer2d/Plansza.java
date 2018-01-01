@@ -25,6 +25,7 @@ import platformer2d.Postacie.BluePortal;
 import platformer2d.Postacie.MalyCzerwonySlime;
 import platformer2d.Postacie.MalyZielonySlime;
 import platformer2d.Postacie.Postac;
+import platformer2d.Poziomy.ScoreRoom;
 
 
 
@@ -42,7 +43,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     
     private int timerDelay;
     private Timer myTimer;
-    public static int timerCounter=0;
+    public static int timerValue=0;
     
     static final int rozmiarPiksela = 2; //czyli jakby przyblizenie ekranu
     public static final Dimension piksele = new Dimension(
@@ -106,7 +107,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
         @Override
         public void actionPerformed(ActionEvent ae) 
         {
-            timerCounter++;
+            timerValue++;
         }
     };
     
@@ -120,10 +121,10 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
     
     public static void reload()
     {
-        timerCounter=0;
-        portal=new BluePortal(30, 450, Kafelek.kafelekSize, Kafelek.kafelekSize);
+        timerValue=0;
         postac = new PostacGracza(100,520,Kafelek.kafelekSize, Kafelek.kafelekSize);
-         
+        PostacGracza.healthValue=100; 
+        
         scrollingX=(int)postac.x;
         scrollingY=(int)postac.y-200;
         
@@ -132,7 +133,13 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             case 1:
             {
                 level=new Poziom1(150, 20); // 2 wartosc nieparzysta (tymczasowo)
-                
+               portal=new BluePortal(
+                       (150*Kafelek.kafelekSize)-(2*Kafelek.kafelekSize), //kafelek x portalu
+                       (20*Kafelek.kafelekSize)-(3*Kafelek.kafelekSize), //kafelek y portalu
+                        Kafelek.kafelekSize,
+                        Kafelek.kafelekSize);
+
+                        
                 mobArrayList=new ArrayList<>();
                 
                 for(int i=0; i<20;i++)//Zielone SLIMY
@@ -162,6 +169,11 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             case 2:
             {
                 level=new Poziom2(40, 20); 
+                portal=new BluePortal(
+                       (40*Kafelek.kafelekSize)-(2*Kafelek.kafelekSize), //kafelek x portalu
+                       (20*Kafelek.kafelekSize)-(3*Kafelek.kafelekSize), //kafelek y portalu
+                        Kafelek.kafelekSize,
+                        Kafelek.kafelekSize);
                 
                 mobArrayList=new ArrayList<>();
                 
@@ -188,32 +200,15 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             
             default:
             {
-               level=new Poziom1(150, 20); // 2 wartosc nieparzysta (tymczasowo)
-                
-                mobArrayList=new ArrayList<>();
-                
-                for(int i=0; i<20;i++)//Zielone SLIMY
-                {
-                    mobArrayList.add(new MalyZielonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
-                            ,100
-                            ,Kafelek.kafelekSize/2
-                            ,Kafelek.kafelekSize/2
-                            ,new Random().nextDouble()*(0.1 + (1.5 - 0.1)) 
-                    ));
-                }
-                
-                 for(int i=0; i<40;i++)//Czerwone SLIMY
-                {
-                    mobArrayList.add(new MalyCzerwonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
-                            ,100
-                            ,Kafelek.kafelekSize/2
-                            ,Kafelek.kafelekSize/2));
-                }
-
-                
-                
-                
-                break;
+               level=new ScoreRoom(20, 20); // 2 wartosc nieparzysta (tymczasowo)
+               portal=new BluePortal(
+                       (20*Kafelek.kafelekSize)-(2*Kafelek.kafelekSize), //kafelek x portalu
+                       (20*Kafelek.kafelekSize)-(3*Kafelek.kafelekSize), //kafelek y portalu
+                       Kafelek.kafelekSize,
+                       Kafelek.kafelekSize);
+               mobArrayList=new ArrayList<>();
+       
+               break;
             }
         }
        
@@ -278,7 +273,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
            graph1.fillRect(piksele.width-120, 25, 65, 15);
            graph1.setColor(Color.white);
            graph1.setFont(myFont2);
-           graph1.drawString("Czas: "+timerCounter+"s", piksele.width-115, 35);
+           graph1.drawString("Czas: "+timerValue+"s", piksele.width-115, 35);
            
            
            //HealthBar

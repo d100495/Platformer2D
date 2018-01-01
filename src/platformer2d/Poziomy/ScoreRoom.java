@@ -1,34 +1,41 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package platformer2d.Poziomy;
 
-import platformer2d.Poziomy.Poziom;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.image.ImageObserver;
+import javax.management.StringValueExp;
 import javax.swing.ImageIcon;
 import platformer2d.Blok;
 import platformer2d.Kafelek;
 import platformer2d.Plansza;
 import static platformer2d.Plansza.piksele;
 import static platformer2d.Plansza.scrollingX;
+import static platformer2d.Plansza.timerValue;
+import platformer2d.Postacie.BluePortal;
+import platformer2d.Postacie.PostacGracza;
 
 /**
  *
  * @author Dunger
  */
-public final class Poziom2 extends Poziom
+public final class ScoreRoom extends Poziom
 {
-
-    public Poziom2(int W, int H) {
+    
+    public ScoreRoom(int W, int H) {
         super(W, H);
         StworzPoziom();//wypelnianie innymi kafelkami
     }
-    
 
     @Override
-    public void StworzPoziom()
+    public void StworzPoziom() 
     {
+        {
         System.out.println("wchodze do stworzpozioom");
         System.out.println("Bloki.length: " + bloki.length);
          for(int x =0; x<bloki.length;x++)
@@ -52,23 +59,21 @@ public final class Poziom2 extends Poziom
             }
         }
     }
+    }
 
-    
     @Override
-    public void tick()
+    public void tick() 
     {
         
     }
-    
-    
-    Image chmura = new ImageIcon(System.getProperty("user.dir") + "\\src\\resources\\chmura1.png").getImage();
-      Image drzewo = new ImageIcon(System.getProperty("user.dir") + "\\src\\resources\\tree.png").getImage();
-    
+
+      Font myFont1 = new Font ("Tahoma", 1, 30);
+      Font myFont2 = new Font ("Tahoma", 1, 20);
     @Override
     public void render(Graphics grap_arg)
     {
        //Rysowanie tla
-       grap_arg.setColor(Color.orange);
+       grap_arg.setColor(Color.black);
        grap_arg.fillRect(0, 0, piksele.width, piksele.height);
         
        
@@ -82,16 +87,17 @@ public final class Poziom2 extends Poziom
     
        
        //Rysowanie dodatkow
-        grap_arg.drawImage(chmura, 250-scrollingX, 328-Plansza.scrollingY, null);  
-        grap_arg.drawImage(chmura, 550-scrollingX, 328-Plansza.scrollingY, null);  
-        grap_arg.drawImage(chmura, 950-scrollingX, 150-Plansza.scrollingY, null);  
-        grap_arg.drawImage(chmura, 1150-scrollingX, 200-Plansza.scrollingY, null);  
-        grap_arg.drawImage(chmura, 1600-scrollingX, 400-Plansza.scrollingY, null);  
-        grap_arg.drawImage(chmura, 1800-scrollingX, 340-Plansza.scrollingY, null);  
-        grap_arg.drawImage(chmura, 2300-scrollingX, 350-Plansza.scrollingY, null);  
-      
+      //grap_arg.drawImage(chmura, 250-scrollingX, 328-Plansza.scrollingY, null);  
+      grap_arg.setColor(Color.white);
+      grap_arg.setFont(myFont1);
+      grap_arg.drawString("Twój czas przejścia: ", piksele.width/2-150, 35);
+        grap_arg.setFont(myFont2);
+      grap_arg.drawString("Poziomu 1: "+BluePortal.czasPoziomu_1+" sekund",  piksele.width/2-100, 85);
+      grap_arg.drawString("Poziomu 2: "+BluePortal.czasPoziomu_2+" sekund", piksele.width/2-100, 120);
+     
        
       
     }//renderowanie poziomu z obiektów graficznych
      
+    
 }

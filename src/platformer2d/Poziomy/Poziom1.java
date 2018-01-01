@@ -25,13 +25,6 @@ public final class Poziom1 extends Poziom
         StworzPoziom();//wypelnianie innymi kafelkami
     }
    
-    
-    @Override
-    public Blok[][] getBloki()
-    {
-        return bloki;
-    }
-    
 
     @Override
     public void StworzPoziom()

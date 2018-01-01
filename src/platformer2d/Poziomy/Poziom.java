@@ -33,12 +33,15 @@ public abstract class Poziom {
                                         Kafelek.kafelekSize),
                                         Kafelek.powietrze);
             }
-        }//wypelnianie powietrzem
+        }//wypelnianie powietrzem, ale moznaby np woda albo czyms innym
         
     }
 
 
-    public abstract Blok[][] getBloki();
+    public Blok[][] getBloki()
+    {
+        return bloki;
+    }
 
 
     public abstract void StworzPoziom();

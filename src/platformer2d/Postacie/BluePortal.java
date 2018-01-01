@@ -21,6 +21,8 @@ public class BluePortal extends Postac
     private int klatkaAnimacji = 0;
     private final int czasAnimacji=10;
     
+    public static int czasPoziomu_1;
+    public static int czasPoziomu_2;
     
     
       public BluePortal(int x, int y, int szer, int wys)
@@ -59,12 +61,29 @@ public class BluePortal extends Postac
         
         if(kolizjaGracz(Plansza.postac, this)) //logika kolizji z graczem
         {
-           if(Plansza.nrPoziomu>2)
+            if(Plansza.nrPoziomu==1)
+            {
+                czasPoziomu_1=Plansza.timerValue;
+            }
+             if(Plansza.nrPoziomu==2)
+            {
+                czasPoziomu_2=Plansza.timerValue;
+            }
+            
+            
+            
+           if(Plansza.nrPoziomu>=3)
            {
                Plansza.nrPoziomu=1;
+               
+               czasPoziomu_1=0;
+               czasPoziomu_2=0;
+           }
+           else
+           {
+               Plansza.nrPoziomu++; 
            }
             
-           Plansza.nrPoziomu++;
            Plansza.reload();
         }
         
