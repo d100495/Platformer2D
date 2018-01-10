@@ -213,8 +213,7 @@ public class PostacGracza extends Postac
         {
             if(isCharacterMoving==true && isCharacterJumping==false && isCharacterFallngDown==false) //poruszanie
             {
-                graph_arg.drawImage(
-                Kafelek.kafelki_teren, 
+                graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                 (int)x - Plansza.scrollingX, 
                 (int)y - Plansza.scrollingY,
                 (int)(x+szer)- Plansza.scrollingX,
@@ -227,8 +226,7 @@ public class PostacGracza extends Postac
             }
             else if(isCharacterJumping==true && isCharacterMoving==true && isCharacterFallngDown==false) //skakanie z ruchem
             {
-                 graph_arg.drawImage(
-                Kafelek.kafelki_teren, 
+                 graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                 (int)x - Plansza.scrollingX, 
                 (int)y - Plansza.scrollingY,
                 (int)(x+szer)- Plansza.scrollingX,
@@ -241,8 +239,7 @@ public class PostacGracza extends Postac
             }
             else if(isCharacterJumping==false && isCharacterMoving==true && isCharacterFallngDown==true) //opadanie z ruchem
             {
-                 graph_arg.drawImage(
-                Kafelek.kafelki_teren, 
+                 graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                 (int)x - Plansza.scrollingX, 
                 (int)y - Plansza.scrollingY,
                 (int)(x+szer)- Plansza.scrollingX,
@@ -254,7 +251,7 @@ public class PostacGracza extends Postac
                 null);
                  
 //                   graph_arg.drawImage(
-//                Kafelek.kafelki_teren, 
+//                Kafelek.kafelki_TileSet, 
 //                (int)x - Plansza.scrollingX, 
 //                (int)y - Plansza.scrollingY,
 //                (int)(x+szer)- Plansza.scrollingX,
@@ -268,8 +265,7 @@ public class PostacGracza extends Postac
             }
             else if(isCharacterJumping==false && isCharacterMoving==false && isCharacterFallngDown==true) //opadanie bez ruchu
             {
-                graph_arg.drawImage(
-                Kafelek.kafelki_teren, 
+                graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                 (int)x - Plansza.scrollingX, 
                 (int)y - Plansza.scrollingY,
                 (int)(x+szer)- Plansza.scrollingX,
@@ -283,8 +279,7 @@ public class PostacGracza extends Postac
             }
              else if(isCharacterJumping==true && isCharacterMoving==false && isCharacterFallngDown==false) //skakanie bez ruchu
             {
-                graph_arg.drawImage(
-                Kafelek.kafelki_teren, 
+                graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                 (int)x - Plansza.scrollingX, 
                 (int)y - Plansza.scrollingY,
                 (int)(x+szer)- Plansza.scrollingX,
@@ -298,8 +293,7 @@ public class PostacGracza extends Postac
             }
             else //stoi w lewo
             {
-                graph_arg.drawImage(
-                Kafelek.kafelki_teren, 
+                graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                 (int)x - Plansza.scrollingX, 
                 (int)y - Plansza.scrollingY,
                 (int)(x+szer)- Plansza.scrollingX,
@@ -321,8 +315,7 @@ public class PostacGracza extends Postac
         {
             if(isCharacterMoving==true && isCharacterJumping==false && isCharacterFallngDown==false) //poruszanie
             {
-                graph_arg.drawImage(
-                Kafelek.kafelki_teren, 
+                graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                 (int)x - Plansza.scrollingX, 
                 (int)y - Plansza.scrollingY,
                 (int)(x+szer)- Plansza.scrollingX,
@@ -335,8 +328,7 @@ public class PostacGracza extends Postac
             }
             else if(isCharacterJumping==true && isCharacterMoving==true && isCharacterFallngDown==false) //skakanie z ruchem
             {
-                graph_arg.drawImage(
-                Kafelek.kafelki_teren, 
+                graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                 (int)x - Plansza.scrollingX, 
                 (int)y - Plansza.scrollingY,
                 (int)(x+szer)- Plansza.scrollingX,
@@ -349,8 +341,7 @@ public class PostacGracza extends Postac
             }
             else if(isCharacterJumping==false && isCharacterMoving==true && isCharacterFallngDown==true) //opadanie z ruchem
             {
-               graph_arg.drawImage(
-                Kafelek.kafelki_teren, 
+               graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                 (int)x - Plansza.scrollingX, 
                 (int)y - Plansza.scrollingY,
                 (int)(x+szer)- Plansza.scrollingX,
@@ -362,7 +353,7 @@ public class PostacGracza extends Postac
                 null);
                 
 //                graph_arg.drawImage(
-//                Kafelek.kafelki_teren, 
+//                Kafelek.kafelki_TileSet, 
 //                (int)x - Plansza.scrollingX, 
 //                (int)y - Plansza.scrollingY,
 //                (int)(x+szer)- Plansza.scrollingX,
@@ -375,8 +366,7 @@ public class PostacGracza extends Postac
             }
             else if(isCharacterJumping==false && isCharacterMoving==false && isCharacterFallngDown==true) //opadanie bez ruchu
             {
-                graph_arg.drawImage(
-                Kafelek.kafelki_teren, 
+                graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                 (int)x - Plansza.scrollingX, 
                 (int)y - Plansza.scrollingY,
                 (int)(x+szer)- Plansza.scrollingX,
@@ -390,8 +380,7 @@ public class PostacGracza extends Postac
             }
             else if(isCharacterJumping==true && isCharacterMoving==false && isCharacterFallngDown==false) //skakanie bez ruchu
             {
-                 graph_arg.drawImage(
-                Kafelek.kafelki_teren, 
+                 graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                 (int)x - Plansza.scrollingX, 
                 (int)y - Plansza.scrollingY,
                 (int)(x+szer)- Plansza.scrollingX,
@@ -405,8 +394,7 @@ public class PostacGracza extends Postac
             }
             else //stoi w prawo
             {
-                graph_arg.drawImage(
-                Kafelek.kafelki_teren, 
+                graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                 (int)x - Plansza.scrollingX, 
                 (int)y - Plansza.scrollingY,
                 (int)(x+szer)- Plansza.scrollingX,
@@ -425,8 +413,7 @@ public class PostacGracza extends Postac
         
          if(isCharacterFlinching==true)
         {
-            graph_arg.drawImage(
-                Kafelek.kafelki_teren, 
+            graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                 (int)x - Plansza.scrollingX, 
                 (int)y - Plansza.scrollingY,
                 (int)(x+szer)- Plansza.scrollingX,

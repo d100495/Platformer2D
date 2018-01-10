@@ -29,7 +29,7 @@ public class Kafelek //moze sie skladac z wiekszej ilosci blokow
     
     public static int [] bluePortal = {0,10};
      
-    public static BufferedImage kafelki_teren;
+    public static BufferedImage kafelki_TileSet;
     public static int kafelekSize = 32;
     
 
@@ -42,7 +42,7 @@ public class Kafelek //moze sie skladac z wiekszej ilosci blokow
             
             System.out.println("file: "+kafelkiPNGFile.getAbsoluteFile());
             
-        Kafelek.kafelki_teren = ImageIO.read(kafelkiPNGFile);
+        Kafelek.kafelki_TileSet = ImageIO.read(kafelkiPNGFile);
         }
         catch(Exception e)
         {

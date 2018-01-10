@@ -94,8 +94,7 @@ public class BluePortal extends Postac
     @Override
     public void render(Graphics graph_arg) {
 
-        graph_arg.drawImage(
-                Kafelek.kafelki_teren,
+        graph_arg.drawImage(Kafelek.kafelki_TileSet,
                 (int) x - Plansza.scrollingX,
                 (int) y - Plansza.scrollingY,
                 (int) (x + szer) - Plansza.scrollingX,

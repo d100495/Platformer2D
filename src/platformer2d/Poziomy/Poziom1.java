@@ -78,7 +78,48 @@ public final class Poziom1 extends Poziom
                    bloki[x][y].blokID=Kafelek.powietrze;
                }
                   
+                  if(((x>75 && x<80) && (y==bloki[x].length-3)))
+               {
+                   bloki[x][y].blokID=Kafelek.trawa;
+               }
                   
+                   if(((x==95) && (y==bloki[x].length-4)))
+               {
+                   bloki[x][y].blokID=Kafelek.trawa;
+               }
+                  
+                  if(((x>95 && x<100) && (y==bloki[x].length-6)))
+               {
+                   bloki[x][y].blokID=Kafelek.trawa;
+               }
+                  
+                    if(((x>104 && x<109) && (y==bloki[x].length-6)))
+               {
+                   bloki[x][y].blokID=Kafelek.trawa;
+               }
+                    
+                      if(((x>112 && x<115) && (y==bloki[x].length-4)))
+               {
+                   bloki[x][y].blokID=Kafelek.trawa;
+               }
+                  
+                   if(((x ==1) && (y==bloki[x].length-5)))
+               {
+                   bloki[x][y].blokID=Kafelek.trawa;
+               }
+                  
+                   
+                        if(((x>5 && x<10) && (y==bloki[x].length-6)))
+               {
+                   bloki[x][y].blokID=Kafelek.trawa;
+               }
+                        
+                  if(((x==108) && (y<bloki[x].length-6 && y>bloki[x].length-20)))
+               {
+                   bloki[x][y].blokID=Kafelek.ziemia;
+               }
+                  
+               
             }
         }
     }

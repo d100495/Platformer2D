@@ -168,9 +168,9 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
             
             case 2:
             {
-                level=new Poziom2(40, 20); 
+                level=new Poziom2(50, 20); 
                 portal=new BluePortal(
-                       (40*Kafelek.kafelekSize)-(2*Kafelek.kafelekSize), //kafelek x portalu
+                       (50*Kafelek.kafelekSize)-(2*Kafelek.kafelekSize), //kafelek x portalu
                        (20*Kafelek.kafelekSize)-(3*Kafelek.kafelekSize), //kafelek y portalu
                         Kafelek.kafelekSize,
                         Kafelek.kafelekSize);
@@ -185,7 +185,7 @@ public class Plansza extends Applet implements Runnable //Applet, zeby mozna wst
                             ,Kafelek.kafelekSize/2));
                 }
                 
-                   for(int i=0; i<3;i++) //Zielone SLIMY
+                   for(int i=0; i<10;i++) //Zielone SLIMY
                 {
                     mobArrayList.add(new MalyZielonySlime(200+(new Random().nextInt(((level.bloki.length*Kafelek.kafelekSize)-200 ) + 1))
                             ,100

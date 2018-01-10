@@ -34,8 +34,7 @@ public class Blok extends Rectangle
         
         if(blokID!=Kafelek.powietrze)
         {
-        graph_arg.drawImage(
-                Kafelek.kafelki_teren,
+        graph_arg.drawImage(Kafelek.kafelki_TileSet,
                 x - Plansza.scrollingX,
                 y - Plansza.scrollingY,
                 x+width - Plansza.scrollingX,

@@ -154,8 +154,7 @@ public class MalyZielonySlime extends Postac
                 if(kierunekPostaci == 1)
                 {
                      
-                            graph_arg.drawImage(
-                            Kafelek.kafelki_teren, 
+                            graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                             (int)x - Plansza.scrollingX, 
                             (int)y - Plansza.scrollingY,
                             (int)(x+szer)- Plansza.scrollingX,
@@ -173,8 +172,7 @@ public class MalyZielonySlime extends Postac
 
                     else 
                     {
-                        graph_arg.drawImage(
-                        Kafelek.kafelki_teren, 
+                        graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                         (int)x - Plansza.scrollingX, 
                         (int)y - Plansza.scrollingY,
                         (int)(x+szer)- Plansza.scrollingX,

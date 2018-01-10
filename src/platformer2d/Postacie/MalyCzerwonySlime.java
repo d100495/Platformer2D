@@ -157,8 +157,7 @@ public class MalyCzerwonySlime extends Postac
                      
                      if(czyNazdepniety==true)
                     {
-                     graph_arg.drawImage(
-                            Kafelek.kafelki_teren, 
+                     graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                             (int)x - Plansza.scrollingX, 
                             (int)y - Plansza.scrollingY,
                             (int)(x+szer)- Plansza.scrollingX,
@@ -171,8 +170,7 @@ public class MalyCzerwonySlime extends Postac
                     }
                     else
                     {
-                       graph_arg.drawImage(
-                            Kafelek.kafelki_teren, 
+                       graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                             (int)x - Plansza.scrollingX, 
                             (int)y - Plansza.scrollingY,
                             (int)(x+szer)- Plansza.scrollingX,
@@ -196,8 +194,7 @@ public class MalyCzerwonySlime extends Postac
 
                     if(czyNazdepniety==true)
                     {
-                        graph_arg.drawImage(
-                        Kafelek.kafelki_teren, 
+                        graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                         (int)x - Plansza.scrollingX, 
                         (int)y - Plansza.scrollingY,
                         (int)(x+szer)- Plansza.scrollingX,
@@ -210,8 +207,7 @@ public class MalyCzerwonySlime extends Postac
                     }
                      else
                     {
-                       graph_arg.drawImage(
-                        Kafelek.kafelki_teren, 
+                       graph_arg.drawImage(Kafelek.kafelki_TileSet, 
                         (int)x - Plansza.scrollingX, 
                         (int)y - Plansza.scrollingY,
                         (int)(x+szer)- Plansza.scrollingX,

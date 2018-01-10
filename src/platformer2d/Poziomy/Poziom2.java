@@ -46,8 +46,20 @@ public final class Poziom2 extends Poziom
                }
                
          
-               
+                   if(((x>2 && x<=45) && (y<bloki[x].length-3 && y>bloki[x].length-10))) 
+               {
+                   bloki[x][y].blokID=Kafelek.ziemia;
+               }
                  
+                if((x%4==0 || x%3==0) && (y<bloki[x].length-3 && y>bloki[x].length-20) &&(x>2 && x<=45)) 
+               {
+                   bloki[x][y].blokID=Kafelek.powietrze;
+               }
+                
+                   if((x%2==0 || x%3==0) && (y<bloki[x].length-5 && y>bloki[x].length-9) &&(x>2 && x<=45)) 
+               {
+                   bloki[x][y].blokID=Kafelek.powietrze;
+               }
                   
             }
         }
