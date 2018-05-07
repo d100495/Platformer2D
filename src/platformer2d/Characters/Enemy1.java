@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package platformer2d.Postacie;
+package platformer2d.Characters;
 
 import java.awt.Graphics;
 
@@ -11,17 +11,16 @@ import java.awt.Graphics;
  *
  * @author Dunger
  */
-public class Przeciwnik1 extends Postac
-{
+public class Enemy1 extends Character {
 
     @Override
     public void tick() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void render(Graphics graph_arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
 }
